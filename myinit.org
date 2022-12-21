@@ -180,9 +180,9 @@
 
 * File Backups
   #+BEGIN_SRC emacs-lisp
-    (setq backup-directory-alist '(("" . "~/.emacs.d/.backup/")))
-    (setq auto-save-file-name-transforms `((".*" "~/.emacs.d/.saves/" t)))
-    (setq lock-file-name-transforms `((".*" "~/.emacs.d/.lockfiles/" t)))
+    (setq backup-directory-alist '(("" . "~/.emacs.d/backup/")))
+    (setq auto-save-file-name-transforms `((".*" "~/.emacs.d/saves/" t)))
+    (setq lock-file-name-transforms `((".*" "~/.emacs.d/lockfiles/" t)))
   #+END_SRC
 * Keyboard Overrides
 ** Window Movement
