@@ -37,6 +37,16 @@
      (recentf-mode 1)
    #+END_SRC
    
+** Bell
+#+BEGIN_SRC emacs-lisp
+  (defun aieis/terminal-visible-bell ()
+    "A friendlier visual bell effect."
+    (invert-face 'mode-line)
+    (run-with-timer 0.1 nil 'invert-face 'mode-line))
+
+  (setq visible-bell nil
+        ring-bell-function 'aieis/terminal-visible-bell)
+#+END_SRC
 * Keyboard Keys
   #+BEGIN_SRC emacs-lisp
     (define-key global-map (kbd "C-M-j") #'aieis/insert-line-below)
