@@ -47,15 +47,7 @@
   (setq visible-bell nil
         ring-bell-function 'aieis/terminal-visible-bell)
 #+END_SRC
-* Keyboard Keys
-  #+BEGIN_SRC emacs-lisp
-    (define-key global-map (kbd "C-M-j") #'aieis/insert-line-below)
-    (define-key global-map (kbd "C-M-o") #'aieis/insert-line-above)
-    (define-key global-map (kbd "C-k") #'aieis/kill-line-zero-space)
-
-  #+END_SRC
-
-** Undo Tree
+* Undo Tree
    #+BEGIN_SRC emacs-lisp
      ;; (use-package undo-tree
      ;;   :init
@@ -194,7 +186,23 @@
     (setq auto-save-file-name-transforms `((".*" "~/.emacs.d/saves/" t)))
     (setq lock-file-name-transforms `((".*" "~/.emacs.d/lockfiles/" t)))
   #+END_SRC
-* Keyboard Overrides
+* Keymap
+** xah-fly-keys (Main Keymap)
+#+BEGIN_SRC emacs-lisp
+    (use-package xah-fly-keys
+      :config (xah-fly-keys))
+#+END_SRC
+** COMMENT which-key
+#+BEGIN_SRC emacs-lisp
+  (use-package which-key
+      :config (which-key-mode))
+#END_SRC
+** Keyboard Keys
+  #+BEGIN_SRC emacs-lisp
+    (define-key global-map (kbd "C-M-j") #'aieis/insert-line-below)
+    (define-key global-map (kbd "C-M-o") #'aieis/insert-line-above)
+    (define-key global-map (kbd "C-k") #'aieis/kill-line-zero-space)
+  #+END_SRC
 ** Window Movement
 #+BEGIN_SRC emacs-lisp
   (define-key global-map (kbd "M-j") 'other-window)
@@ -218,7 +226,13 @@
         (global-set-key (kbd "C-x C-f") #'helm-find-files)
         (helm-mode 1))
 #+END_SRC
-
+** Reconcile (HELM - Xah)
+#+BEGIN_SRC emacs-lisp
+  (with-eval-after-load 'helm
+    (with-eval-after-load 'xah-fly-keys
+      (define-key xah-fly-command-map (kbd "a") 'helm-M-x)
+      (define-key xah-fly-command-map (kbd "SPC i e") 'helm-find-files)))
+#+END_SRC
 * Window Display
 ** Window
 
@@ -253,11 +267,15 @@
              (side . left))
             ("\\*Man .*\\*" (display-buffer-reuse-mode-window ) nil)))
    #+END_SRC
-
+   
 * File Association
 #+BEGIN_SRC emacs-lisp
   (push '("\\.js[x]?\\'" . javascript-mode) auto-mode-alist)
   (push '("\\.ts[x]?\\'" . javascript-mode) auto-mode-alist)
+#+END_SRC
+* Themes
+#+BEGIN_SRC emacs-lisp
+  (use-package moe-theme)
 #+END_SRC
 * Install Packages
 #+BEGIN_SRC emacs-lisp
