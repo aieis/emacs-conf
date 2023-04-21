@@ -22,7 +22,6 @@
 * Defaults
 ** Default Options
    #+BEGIN_SRC emacs-lisp
-     (add-to-list 'default-frame-alist '(font . "Iosevka 10"))
      (column-number-mode t)
      (setq display-line-numbers-type t)
      (global-display-line-numbers-mode t)
@@ -36,6 +35,27 @@
      (setq delete-old-versions t)
      (recentf-mode 1)
    #+END_SRC
+
+** Font
+#+BEGIN_SRC emacs-lisp
+  (setq aieis/font-family "Iosevka")
+  (setq aieis/font-size 10)
+  (setq aieis/font-list '(("Iosevka" . 10)))
+
+  (defun frame-font-setup
+      (&rest ...)
+    ;; (remove-hook 'focus-in-hook #'frame-font-setup)
+    (unless (assoc 'font default-frame-alist)
+      (let* ((font-a (catch 'break
+                       (dolist (font-a aieis/font-list)
+                         (when (member (car font-a) (font-family-list))
+                           (throw 'break font-a)))))
+             (font (when (car font-a) (format "%s-%d" (car font-a) (cdr font-a)))))
+        (when font
+          (add-to-list 'default-frame-alist (cons 'font font))
+          (set-frame-font font t t)))))
+  (add-hook 'focus-in-hook #'frame-font-setup)
+#+END_SRC
    
 ** Bell
 #+BEGIN_SRC emacs-lisp
@@ -68,8 +88,15 @@
             `(("b"
                "Template for adding a task"
                entry
-               (file+headline "tasks.org" "Refile")
-               "* TODO %?"))))
+               (file+headline "~/notes/tasks.org" "Refile")
+               "* TODO %^t %^G %?")
+            ("a"
+             "Template for adding a task"
+             entry
+             (file+headline "~/notes/art.org" "Art")
+             "* TODO %^t %^G %?"))
+            )
+    )
   #+END_SRC
 * COMMENT Completions
   #+BEGIN_SRC emacs-lisp
@@ -141,7 +168,18 @@
 
   #+END_SRC
 
-* HELM
+* Vertico
+#+BEGIN_SRC emacs-lisp
+  (use-package vertico
+    :init
+    (vertico-mode))
+
+  ;; Persist history over Emacs restarts. Vertico sorts by history position.
+  (use-package savehist
+    :init
+    (savehist-mode))
+#+END_SRC
+* COMMENT HELM
 #+BEGIN_SRC emacs-lisp
   (use-package helm)
 #+END_SRC
@@ -187,11 +225,6 @@
     (setq lock-file-name-transforms `((".*" "~/.emacs.d/lockfiles/" t)))
   #+END_SRC
 * Keymap
-** xah-fly-keys (Main Keymap)
-#+BEGIN_SRC emacs-lisp
-    (use-package xah-fly-keys
-      :config (xah-fly-keys))
-#+END_SRC
 ** COMMENT which-key
 #+BEGIN_SRC emacs-lisp
   (use-package which-key
@@ -263,8 +296,8 @@
             ("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
              nil
              (window-parameters (mode-line-format . none)))
-            ("\\*Org Agenda\\*" (display-buffer-reuse-mode-window display-buffer-in-side-window)
-             (side . left))
+            ;; ("\\*Org Agenda\\*" (display-buffer-reuse-mode-window display-buffer-in-side-window)
+            ;;  (side . left))
             ("\\*Man .*\\*" (display-buffer-reuse-mode-window ) nil)))
    #+END_SRC
    
@@ -276,6 +309,7 @@
 * Themes
 #+BEGIN_SRC emacs-lisp
   (use-package moe-theme)
+  (use-package modus-themes)
 #+END_SRC
 * Install Packages
 #+BEGIN_SRC emacs-lisp
