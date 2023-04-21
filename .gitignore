@@ -1,3 +1,6 @@
 saves/*
 backup/*
 lockfiles/*
+straight
+auto-save-list
+elpa
