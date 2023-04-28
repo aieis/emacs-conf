@@ -34,6 +34,7 @@
      (electric-pair-mode 1)
      (setq delete-old-versions t)
      (recentf-mode 1)
+     (setq native-comp-async-report-warnings-errors 'silent)
    #+END_SRC
 
 ** Font
@@ -94,9 +95,10 @@
              "Template for adding a task"
              entry
              (file+headline "~/notes/art.org" "Art")
-             "* TODO %^t %^G %?"))
-            )
-    )
+             "* TODO %^t %^G %?")
+            ("c" "Add a code snippet" entry
+             (file+headline "~/notes/snippets.org" "Snippet")
+             "* %t %?"))))
   #+END_SRC
 * COMMENT Completions
   #+BEGIN_SRC emacs-lisp
@@ -179,10 +181,6 @@
     :init
     (savehist-mode))
 #+END_SRC
-* COMMENT HELM
-#+BEGIN_SRC emacs-lisp
-  (use-package helm)
-#+END_SRC
 * magit
 #+BEGIN_SRC emacs-lisp
   (use-package magit)
@@ -218,6 +216,14 @@
                    (concat "/sudo:root@localhost:" file))))
   #+END_SRC
 
+* Help Functions
+#+BEGIN_SRC emacs-lisp
+  (require 'thingatpt)
+  (defun aieis/man-display ()
+    (interactive)
+    (let ((target (symbol-at-point)))
+      (man (symbol-name target))))
+#+END_SRC
 * File Backups
   #+BEGIN_SRC emacs-lisp
     (setq backup-directory-alist '(("" . "~/.emacs.d/backup/")))
@@ -232,9 +238,10 @@
 #END_SRC
 ** Keyboard Keys
   #+BEGIN_SRC emacs-lisp
-    (define-key global-map (kbd "C-M-j") #'aieis/insert-line-below)
+    ;;(define-key global-map (kbd "C-M-j") #'aieis/insert-line-below)
     (define-key global-map (kbd "C-M-o") #'aieis/insert-line-above)
     (define-key global-map (kbd "C-k") #'aieis/kill-line-zero-space)
+    (define-key global-map (kbd "M-]") #'aieis/man-display)
   #+END_SRC
 ** Window Movement
 #+BEGIN_SRC emacs-lisp
@@ -298,7 +305,7 @@
              (window-parameters (mode-line-format . none)))
             ;; ("\\*Org Agenda\\*" (display-buffer-reuse-mode-window display-buffer-in-side-window)
             ;;  (side . left))
-            ("\\*Man .*\\*" (display-buffer-reuse-mode-window ) nil)))
+            ("\\*Man .*\\*" (display-buffer-reuse-mode-window ) (reusable-frames . visible))))
    #+END_SRC
    
 * File Association
