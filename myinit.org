@@ -233,12 +233,27 @@
 * Help Functions
 #+BEGIN_SRC emacs-lisp
   (require 'thingatpt)
-  (defun aieis/man-display ()
+
+  (defun aieis/man-b (&optional target)
+    (interactive)
+    (let* ((frame (aieis/ensure-visible-frame-pattern "\\*Man .*\\*" "*Man Pages*"))
+           (window (frame-first-window frame))
+           (buf (if target (man target) (call-interactively 'man)))
+           (nwindow (get-buffer-window buf)))
+      (unless (eq window nwindow)
+        (progn
+          (delete-window nwindow)
+          (set-window-buffer window buf)))))
+
+
+  (defun aieis/man ()
+    (interactive)
+    (aieis/man-b 'nil))
+
+  (defun aieis/man-at-point ()
     (interactive)
     (let ((target (symbol-at-point)))
-      (progn
-        (aieis/ensure-visible-frame-pattern "\\*Man .*\\*" "*Man page*")
-        (man (symbol-name target)))))
+      (aieis/man-b (symbol-name target))))
 #+END_SRC
 
 * File Backups
@@ -253,7 +268,7 @@
     (define-key global-map (kbd "C-M-j") #'aieis/insert-line-below)
     (define-key global-map (kbd "C-M-o") #'aieis/insert-line-above)
     (define-key global-map (kbd "C-k") #'aieis/kill-line-zero-space)
-    (define-key global-map (kbd "M-]") #'aieis/man-display)
+    (define-key global-map (kbd "M-]") #'aieis/man-at-point)
   #+END_SRC
 ** Window Movement
 #+BEGIN_SRC emacs-lisp
@@ -269,21 +284,6 @@
   (defun myprevious-window ()
       (interactive)
       (other-window -1))
-#+END_SRC
-** HELM
-#+BEGIN_SRC emacs-lisp
-  (with-eval-after-load 'helm
-        (global-set-key (kbd "M-x") #'helm-M-x)
-        (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
-        (global-set-key (kbd "C-x C-f") #'helm-find-files)
-        (helm-mode 1))
-#+END_SRC
-** Reconcile (HELM - Xah)
-#+BEGIN_SRC emacs-lisp
-  (with-eval-after-load 'helm
-    (with-eval-after-load 'xah-fly-keys
-      (define-key xah-fly-command-map (kbd "a") 'helm-M-x)
-      (define-key xah-fly-command-map (kbd "SPC i e") 'helm-find-files)))
 #+END_SRC
 * Window Display
 ** Window
