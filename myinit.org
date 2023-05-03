@@ -68,6 +68,12 @@
   (setq visible-bell nil
         ring-bell-function 'aieis/terminal-visible-bell)
 #+END_SRC
+
+* Load Custom Files
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'load-path (concat user-emacs-directory "lisp/" ))
+  (load "utils")
+#+END_SRC
 * Undo Tree
    #+BEGIN_SRC emacs-lisp
      ;; (use-package undo-tree
@@ -81,7 +87,15 @@
   #+BEGIN_SRC emacs-lisp
     (use-package org
       :config
-      (define-key global-map (kbd "C-c a") 'org-agenda)
+      (define-key
+       global-map
+       (kbd "C-c a")
+       (lambda ()
+         (interactive)
+         (progn 
+           (aieis/ensure-visible-frame-pattern "\\*Org Agenda\\*" "*Org Agenda*")
+           (org-agenda))))
+
       (define-key global-map (kbd "C-c c") 'org-capture))
 
     (with-eval-after-load 'org
@@ -91,14 +105,14 @@
                entry
                (file+headline "~/notes/tasks.org" "Refile")
                "* TODO %^t %^G %?")
-            ("a"
-             "Template for adding a task"
-             entry
-             (file+headline "~/notes/art.org" "Art")
-             "* TODO %^t %^G %?")
-            ("c" "Add a code snippet" entry
-             (file+headline "~/notes/snippets.org" "Snippet")
-             "* %t %?"))))
+              ("a"
+               "Template for adding a task"
+               entry
+               (file+headline "~/notes/art.org" "Art")
+               "* TODO %^t %^G %?")
+              ("c" "Add a code snippet" entry
+               (file+headline "~/notes/snippets.org" "Snippet")
+               "* %t %?"))))
   #+END_SRC
 * COMMENT Completions
   #+BEGIN_SRC emacs-lisp
@@ -222,8 +236,11 @@
   (defun aieis/man-display ()
     (interactive)
     (let ((target (symbol-at-point)))
-      (man (symbol-name target))))
+      (progn
+        (aieis/ensure-visible-frame-pattern "\\*Man .*\\*" "*Man page*")
+        (man (symbol-name target)))))
 #+END_SRC
+
 * File Backups
   #+BEGIN_SRC emacs-lisp
     (setq backup-directory-alist '(("" . "~/.emacs.d/backup/")))
@@ -231,14 +248,9 @@
     (setq lock-file-name-transforms `((".*" "~/.emacs.d/lockfiles/" t)))
   #+END_SRC
 * Keymap
-** COMMENT which-key
-#+BEGIN_SRC emacs-lisp
-  (use-package which-key
-      :config (which-key-mode))
-#END_SRC
 ** Keyboard Keys
   #+BEGIN_SRC emacs-lisp
-    ;;(define-key global-map (kbd "C-M-j") #'aieis/insert-line-below)
+    (define-key global-map (kbd "C-M-j") #'aieis/insert-line-below)
     (define-key global-map (kbd "C-M-o") #'aieis/insert-line-above)
     (define-key global-map (kbd "C-k") #'aieis/kill-line-zero-space)
     (define-key global-map (kbd "M-]") #'aieis/man-display)
@@ -275,7 +287,6 @@
 #+END_SRC
 * Window Display
 ** Window
-
    #+BEGIN_SRC emacs-lisp
      (use-package ace-window
        :ensure t
@@ -303,9 +314,8 @@
             ("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
              nil
              (window-parameters (mode-line-format . none)))
-            ;; ("\\*Org Agenda\\*" (display-buffer-reuse-mode-window display-buffer-in-side-window)
-            ;;  (side . left))
-            ("\\*Man .*\\*" (display-buffer-reuse-mode-window ) (reusable-frames . visible))))
+            ("\\*Man .*\\*" (display-buffer-reuse-mode-window ) (reusable-frames . visible))
+            ("\\(\\*Agenda Commands\\*\\|*Org Agenda*\\)" (display-buffer-reuse-mode-window ) (reusable-frames . visible))))
    #+END_SRC
    
 * File Association
