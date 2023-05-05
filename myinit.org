@@ -104,12 +104,12 @@
                "Template for adding a task"
                entry
                (file+headline "~/notes/tasks.org" "Refile")
-               "* TODO %^t %^G %?")
+               "* TODO %^t %? %^G")
               ("a"
                "Template for adding a task"
                entry
                (file+headline "~/notes/art.org" "Art")
-               "* TODO %^t %^G %?")
+               "* TODO %^t %?  %^G")
               ("c" "Add a code snippet" entry
                (file+headline "~/notes/snippets.org" "Snippet")
                "* %t %?"))))
