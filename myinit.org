@@ -73,6 +73,7 @@
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'load-path (concat user-emacs-directory "lisp/" ))
   (load "utils")
+  (load "read-only-enhanced")
 #+END_SRC
 * Undo Tree
    #+BEGIN_SRC emacs-lisp
@@ -131,6 +132,16 @@
                (file+headline "~/notes/snippets.org" "Snippet")
                "* %t %?"))))
   #+END_SRC
+* Eglot . Company
+#+BEGIN_SRC emacs-lisp
+  (use-package company
+    :init
+    (setq company-selection-wrap-around t)
+    :config
+    (global-company-mode))
+
+  (add-hook 'python-mode-hook 'eglot-ensure)
+#+END_SRC
 * COMMENT Completions
   #+BEGIN_SRC emacs-lisp
     (setq completions-format 'one-column)

@@ -15,11 +15,11 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes '(modus-operandi-tinted))
+ '(custom-enabled-themes '(modus-vivendi-tinted))
  '(custom-safe-themes
-   '("1e2f562077d76160ad2a4b648bf754698ab8cdf3914db933badc356881dad147" "d395c1793e0d64797d711c870571a0033174ca321ed48444efbe640bf692bf4f" "250007c5ae19bcbaa80e1bf8184720efb6262adafa9746868e6b9ecd9d5fbf84" "896e4305e7c10f3217c5c0a0ef9d99240c3342414ec5bfca4ec4bff27abe2d2d" "bfc0b9c3de0382e452a878a1fb4726e1302bf9da20e69d6ec1cd1d5d82f61e3d" "35335d6369e911dac9d3ec12501fd64bc4458376b64f0047169d33f9d2988201" "df1cbfd16a8af6e821c3299d92c84a0601e961f1be6efd761d6dd40621fde9eb" "3c451787cee570710bff441154a7db8b644cdbb7d270189b2724c6041a262381" "d537a9d42c6f5349d1716ae9be9a0645cc168f7aff2a8353819d570e5d02c0b3" default))
-  '(org-agenda-files
-    '("~/notes/tags.org" "~/notes/art.org" "~/notes/tasks.org" "~/notes/snippets.org"))
+   '("a9c9f34794fa0b2da9e111a85402fb3f9b82e281398e0249bbc073210592e198" "e2337309361eef29e91656c5e511a6cb8c54ce26231e11424a8873ea88d9093e" "bc6a96def5282e9d8a07edc03e02697eae9ab2e21a90ed2f07038bbf6ed4145c" "75e027e3ab2892c5c1f152e3d9fae03718f75bee50d259040e56e7e7672a4872" "2da5f695ab1373fd25e06302a3055eac39c37e6962063eb87c2e0a6e2d6ef5c0" "1e2f562077d76160ad2a4b648bf754698ab8cdf3914db933badc356881dad147" "d395c1793e0d64797d711c870571a0033174ca321ed48444efbe640bf692bf4f" "250007c5ae19bcbaa80e1bf8184720efb6262adafa9746868e6b9ecd9d5fbf84" "896e4305e7c10f3217c5c0a0ef9d99240c3342414ec5bfca4ec4bff27abe2d2d" "bfc0b9c3de0382e452a878a1fb4726e1302bf9da20e69d6ec1cd1d5d82f61e3d" "35335d6369e911dac9d3ec12501fd64bc4458376b64f0047169d33f9d2988201" "df1cbfd16a8af6e821c3299d92c84a0601e961f1be6efd761d6dd40621fde9eb" "3c451787cee570710bff441154a7db8b644cdbb7d270189b2724c6041a262381" "d537a9d42c6f5349d1716ae9be9a0645cc168f7aff2a8353819d570e5d02c0b3" default))
+ '(org-agenda-files
+   '("~/notes/tags.org" "~/notes/art.org" "~/notes/tasks.org" "~/notes/snippets.org"))
  '(warning-suppress-types '((emacs))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -27,3 +27,4 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(put 'upcase-region 'disabled nil)
