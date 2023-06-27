@@ -68,12 +68,28 @@
   (setq visible-bell nil
         ring-bell-function 'aieis/terminal-visible-bell)
 #+END_SRC
+* packages
+#+BEGIN_SRC emacs-lisp
+  (setq aieis/packages '(marginalia
+                         consult
+                         embark
+                         embark-consult
+                         orderless
+                         ace-window
+                         vertico
 
+                         all-the-icons
+                         all-the-icons-dired
+                         dired-hide-dotfiles
+                         ))
+
+#+END_SRC
 * Load Custom Files
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'load-path (concat user-emacs-directory "lisp/" ))
   (load "utils")
   (load "read-only-enhanced")
+  (load "filemanager")
 #+END_SRC
 * Undo Tree
    #+BEGIN_SRC emacs-lisp
@@ -358,9 +374,9 @@
 #+END_SRC
 * Install Packages
 #+BEGIN_SRC emacs-lisp
-    (setq aieis/packages '(marginalia consult embark embark-consult orderless ace-window helm))
-    (defun aieis/install-packages ()
+  (defun aieis/install-packages ()
       (interactive)
       (dolist (package aieis/packages)
         (straight-use-package package)))
+  (aieis/install-packages)
 #+END_SRC
