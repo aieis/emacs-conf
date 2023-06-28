@@ -68,6 +68,7 @@
   (setq visible-bell nil
         ring-bell-function 'aieis/terminal-visible-bell)
 #+END_SRC
+
 * packages
 #+BEGIN_SRC emacs-lisp
   (setq aieis/packages '(marginalia
@@ -84,6 +85,7 @@
                          ))
 
 #+END_SRC
+
 * Load Custom Files
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'load-path (concat user-emacs-directory "lisp/" ))
@@ -91,7 +93,7 @@
   (load "read-only-enhanced")
   (load "filemanager")
   (load "sys-utils")
-#+END_SRC
+ #+END_SRC
 * Undo Tree
    #+BEGIN_SRC emacs-lisp
      ;; (use-package undo-tree
