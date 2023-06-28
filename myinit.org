@@ -90,6 +90,7 @@
   (load "utils")
   (load "read-only-enhanced")
   (load "filemanager")
+  (load "sys-utils")
 #+END_SRC
 * Undo Tree
    #+BEGIN_SRC emacs-lisp
