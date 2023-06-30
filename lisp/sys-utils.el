@@ -1,7 +1,5 @@
 (defun aieis/open-terminal (&optional file)
-  "Open the current file or dired marked files in external app.
-
-The app is chosen from your OS's preference."
+  "Open a terminal window in the current file's directory. "
   (interactive)
   (let ((target-dir
          (cond
@@ -16,5 +14,5 @@ The app is chosen from your OS's preference."
      ((string-equal system-type "gnu/linux")
       (start-process "" nil "sakura" target-dir)))))
 
- ; Keybindings ;
+                                        ; Keybindings ;
 (define-key global-map (kbd "M-RET") 'aieis/open-terminal)

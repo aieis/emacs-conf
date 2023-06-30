@@ -1,5 +1,5 @@
 (defun aieis/new-frame-with-name (fn)
-  "Open a new frame with scratch buffer selected"
+  "Open a new frame with a new buffer of the supplied name."
   (interactive)
   (let ((frame (make-frame))
         (scratch-name fn))
@@ -24,3 +24,9 @@
                                  frames)))
     (if frame frame
       (aieis/new-frame-with-name fn))))
+
+
+(defun aieis/force-delete-window ()
+  (interactive)
+  (cond ((= 1 (length (window-list))) (delete-frame))
+        (t (delete-window))))
