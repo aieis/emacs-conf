@@ -79,6 +79,8 @@
                          ace-window
                          vertico
 
+                         haskell-mode
+
                          all-the-icons
                          all-the-icons-dired
                          dired-hide-dotfiles
