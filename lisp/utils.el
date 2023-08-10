@@ -1,5 +1,5 @@
 (defun aieis/new-frame-with-name (fn)
-  "Open a new frame with a new buffer of the supplied name."
+  "Open a new frame with scratch buffer selected"
   (interactive)
   (let ((frame (make-frame))
         (scratch-name fn))
@@ -15,6 +15,7 @@
   (cond ((null ls) 'nil)
         (t (or (funcall fun (car ls)) (aieis/list-match fun (cdr ls))))))
 
+
 (defun aieis/ensure-visible-frame-pattern (pattern fn)
   (let* ((frames (visible-frame-list))
         (frame (aieis/list-match (lambda (frame)
@@ -25,8 +26,13 @@
     (if frame frame
       (aieis/new-frame-with-name fn))))
 
-
 (defun aieis/force-delete-window ()
   (interactive)
   (cond ((= 1 (length (window-list))) (delete-frame))
         (t (delete-window))))
+
+
+(defun align-non-space (BEG END)
+  "Align non-space columns in region BEG END."
+  (interactive "r")
+  (align-regexp BEG END "\\(\\s-*\\)\\S-+" 1 1 t))
