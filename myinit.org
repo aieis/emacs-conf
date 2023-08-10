@@ -108,17 +108,10 @@
    
 * Org Mode
   #+BEGIN_SRC emacs-lisp
+    (load "agenda")
     (use-package org
       :config
-      (define-key
-       global-map
-       (kbd "C-c a")
-       (lambda ()
-         (interactive)
-         (progn 
-           (aieis/ensure-visible-frame-pattern "\\*Org Agenda\\*" "*Org Agenda*")
-           (org-agenda))))
-
+      (define-key global-map (kbd "C-c a") 'aieis/org-agenda)
       (define-key global-map (kbd "C-c c") 'org-capture))
 
     (use-package org-roam
