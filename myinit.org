@@ -78,6 +78,7 @@
                          orderless
                          ace-window
                          vertico
+                         transpose-frame
 
                          haskell-mode
 
