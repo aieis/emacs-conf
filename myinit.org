@@ -42,8 +42,8 @@
 ** Font
 #+BEGIN_SRC emacs-lisp
   (setq aieis/font-family "Iosevka")
-  (setq aieis/font-size 10)
-  (setq aieis/font-list '(("Iosevka" . 10)))
+  (setq aieis/font-size 14)
+  (setq aieis/font-list '(("Iosevka" . 14)))
 
   (defun frame-font-setup
       (&rest ...)
