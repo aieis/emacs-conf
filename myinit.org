@@ -115,7 +115,7 @@
     (load "agenda")
     (use-package org
       :config
-      (define-keya global-map (kbd "C-c a") 'aieis/org-agenda)
+      (define-key global-map (kbd "C-c a") 'aieis/org-agenda)
       (define-key global-map (kbd "C-c c") 'org-capture))
 
     (use-package org-roam

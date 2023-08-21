@@ -4,9 +4,9 @@
 (defun aieis/c-mode-hook ()
   (setq c-basic-offset 4))
 
-(defun aieis/flymake-show-buffer-diagnostics-hook ()
-  (let ((frame (aieis/frame-visible? "\\*Flymake diagnostics*")))
-    (if frame (call-interactively 'flymake-show-buffer-diagnostics))))
+(defun aieis/flymake-show-buffer-diagnostics-hook (&optional arg)
+  (if (and (derived-mode-p 'prog-mode) (bound-and-true-p flymake-mode) (aieis/frame-visible? "\\*Flymake diagnostics*"))
+      (call-interactively 'flymake-show-buffer-diagnostics)))
 
 
 ;; File Association
@@ -22,7 +22,8 @@
 (add-hook 'js-mode-hook 'aieis/js-mode-hook)
 
 (add-hook 'flymake-mode-hook 'aieis/flymake-show-buffer-diagnostics-hook)
-
+(add-hook 'window-buffer-change-functions 'aieis/flymake-show-buffer-diagnostics-hook)
+(add-hook 'window-selection-change-functions 'aieis/flymake-show-buffer-diagnostics-hook)
 ;; Keymap Keys
 (define-key prog-mode-map (kbd "C-c f d") 'flymake-show-buffer-diagnostics)
 (define-key prog-mode-map (kbd "C-c f n") 'flymake-goto-next-error)
