@@ -4,3 +4,4 @@ lockfiles/*
 straight
 auto-save-list
 elpa
+eln-cache

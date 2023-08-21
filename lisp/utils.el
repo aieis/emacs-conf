@@ -16,13 +16,19 @@
         (t (or (funcall fun (car ls)) (aieis/list-match fun (cdr ls))))))
 
 
+(defun aieis/frame-visible? (pattern)
+  (let ((frames (visible-frame-list)))
+    (message "%s" frames)
+         (aieis/list-match
+          (lambda (frame)
+            (let* ((res (string-match pattern (frame-parameter frame 'name)))
+                   (nres (and res (= res 0))))
+              (message (frame-parameter frame 'name))
+              (if nres frame 'nil))) frames)))
+
+
 (defun aieis/ensure-visible-frame-pattern (pattern fn)
-  (let* ((frames (visible-frame-list))
-        (frame (aieis/list-match (lambda (frame)
-                                (let* ((res (string-match pattern (frame-parameter frame 'name)))
-                                       (nres (and res (= res 0))))
-                                  (if nres frame 'nil)))
-                                 frames)))
+  (let* ((frame (aieis/frame-visible? pattern)))
     (if frame frame
       (aieis/new-frame-with-name fn))))
 

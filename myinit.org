@@ -23,6 +23,7 @@
 ** Default Options
    #+BEGIN_SRC emacs-lisp
      (column-number-mode t)
+     (setq display-buffer-base-action '(display-buffer-reuse-window (reusable-frames . 1)))
      (setq menu-bar-mode nil)
      (setq tool-bar-mode nil)
      (setq display-line-numbers-type t)
@@ -114,7 +115,7 @@
     (load "agenda")
     (use-package org
       :config
-      (define-key global-map (kbd "C-c a") 'aieis/org-agenda)
+      (define-keya global-map (kbd "C-c a") 'aieis/org-agenda)
       (define-key global-map (kbd "C-c c") 'org-capture))
 
     (use-package org-roam
@@ -197,15 +198,7 @@
     (define-key completion-list-mode-map (kbd "C-p") 'aieis/prev-completion)
 
   #+END_SRC
-* Language Specifics
-#+BEGIN_SRC emacs-lisp
-  (defun aieis/js-mode-hook ()
-    (setq js-indent-level 2))
-  (add-hook 'js-mode-hook 'aieis/js-mode-hook)
-  (defun aieis/c-mode-hook ()
-    (setq c-basic-offset 4))
-  (add-hook 'c-mode-hook 'aieis/c-mode-hook)
-#+END_SRC
+
 * Embark . Consult . Orderless . Marginalia
   #+BEGIN_SRC emacs-lisp
     (use-package orderless
@@ -344,30 +337,31 @@
    #+END_SRC
 
   #+BEGIN_SRC emacs-lisp
-    (setq display-buffer-alist
-          `(;;
-            ("\\*.*shell\\*"
-             (display-buffer-reuse-mode-window display-buffer-in-direction)
-             (direction . right))	 
-            ("\\*.*[C|c]ompilation.*\\*"
-             (display-buffer-reuse-mode-window display-buffer-in-side-window)
-             (side . right))
-            ("\\*Embark Actions\\*"
-             (display-buffer-reuse-mode-window display-buffer-at-bottom)
-             (window-height . fit-window-to-buffer)
-             (window-parameters . ((no-other-window . t)
-                                   (mode-line-format . none))))
-            ("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
-             nil
-             (window-parameters (mode-line-format . none)))
-            ("\\*Man .*\\*" (display-buffer-reuse-mode-window ) (reusable-frames . visible))
-            ("\\(\\*Agenda Commands\\*\\|*Org Agenda*\\)" (display-buffer-reuse-mode-window ) (reusable-frames . visible))))
+    (let ((add-display-buffer-alist
+           `(
+             ("\\*.*shell\\*"
+              (display-buffer-reuse-mode-window display-buffer-in-direction)
+              (direction . right))	 
+             ("\\*.*[C|c]ompilation.*\\*"
+              (display-buffer-reuse-mode-window display-buffer-in-side-window)
+              (side . right))
+             ("\\*Embark Actions\\*"
+              (display-buffer-reuse-mode-window display-buffer-at-bottom)
+              (window-height . fit-window-to-buffer)
+              (window-parameters . ((no-other-window . t)
+                                    (mode-line-format . none))))
+             ("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+              nil
+              (window-parameters (mode-line-format . none)))
+             ("\\*Man .*"
+              (display-buffer-reuse-mode-window)
+              (reusable-frames . visible))
+             ("\\(\\*Agenda Commands.*\\|*Org Agenda.*\\)"
+              (display-buffer-reuse-mode-window)
+              (reusable-frames . visible)))))
+      (setq display-buffer-alist (append display-buffer-alist add-display-buffer-alist)))
    #+END_SRC
    
-* File Association
-#+BEGIN_SRC emacs-lisp
-  (push '("\\.js[x]?\\'" . javascript-mode) auto-mode-alist)
-  (push '("\\.ts[x]?\\'" . javascript-mode) auto-mode-alist)
 #+END_SRC
 * Themes
 #+BEGIN_SRC emacs-lisp
