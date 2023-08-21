@@ -23,6 +23,8 @@
 ** Default Options
    #+BEGIN_SRC emacs-lisp
      (column-number-mode t)
+     (setq menu-bar-mode nil)
+     (setq tool-bar-mode nil)
      (setq display-line-numbers-type t)
      (global-display-line-numbers-mode t)
      (set-scroll-bar-mode nil)
