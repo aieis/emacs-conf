@@ -38,13 +38,15 @@
      (setq delete-old-versions t)
      (recentf-mode 1)
      (setq native-comp-async-report-warnings-errors 'silent)
+     (setq org-startup-indented t)
+     (setq org-hide-leading-stars t)
    #+END_SRC
 
 ** Font
 #+BEGIN_SRC emacs-lisp
   (setq aieis/font-family "Iosevka")
-  (setq aieis/font-size 14)
-  (setq aieis/font-list '(("Iosevka" . 14)))
+  (setq aieis/font-size 10)
+  (setq aieis/font-list '(("Iosevka" . 10)))
 
   (defun frame-font-setup
       (&rest ...)
@@ -74,24 +76,37 @@
 
 * packages
 #+BEGIN_SRC emacs-lisp
-  (setq aieis/packages '(marginalia
-                         consult
-                         embark
-                         embark-consult
-                         orderless
-                         ace-window
-                         vertico
-                         transpose-frame
+  (setq aieis/packages
+        '(marginalia
+          consult
+          embark
+          embark-consult
+          orderless
+          ace-window
+          vertico
+          transpose-frame
 
-                         haskell-mode
+          haskell-mode
+          rust-mode
 
-                         all-the-icons
-                         all-the-icons-dired
-                         dired-hide-dotfiles
-                         ))
+          lsp-mode
+          lsp-ui
+          lsp-haskell
+          lsp-pyright
 
+          all-the-icons
+          all-the-icons-dired
+          dired-hide-dotfiles ))
 #+END_SRC
-
+* Install Packages
+#+BEGIN_SRC emacs-lisp
+  (defun aieis/install-packages ()
+      (interactive)
+      (dolist (package aieis/packages)
+        (straight-use-package package)))
+  (aieis/install-packages)
+#+END_SRC
+  
 * Load Custom Files
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'load-path (concat user-emacs-directory "lisp/" ))
@@ -158,8 +173,7 @@
     (setq company-selection-wrap-around t)
     :config
     (global-company-mode))
-
-  (add-hook 'python-mode-hook 'eglot-ensure)
+  
 #+END_SRC
 * COMMENT Completions
   #+BEGIN_SRC emacs-lisp
@@ -367,12 +381,4 @@
 #+BEGIN_SRC emacs-lisp
   (use-package moe-theme)
   (use-package modus-themes)
-#+END_SRC
-* Install Packages
-#+BEGIN_SRC emacs-lisp
-  (defun aieis/install-packages ()
-      (interactive)
-      (dolist (package aieis/packages)
-        (straight-use-package package)))
-  (aieis/install-packages)
 #+END_SRC
