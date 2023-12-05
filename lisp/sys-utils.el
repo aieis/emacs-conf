@@ -1,5 +1,9 @@
+;;; sys-utils.el --- System utilities based on OS
+;;; Commentary:
+;;; Code:
+
 (defun aieis/open-terminal (&optional file)
-  "Open a terminal window in the current file's directory. "
+  "Open a terminal window in the current FILE's directory."
   (interactive)
   (let ((target-dir
          (cond
@@ -16,7 +20,7 @@
 
 
 (defun aieis/open-default (&optional file)
-  "Open a file with the default application"
+  "Open a FILE with the default application."
   (interactive)
   (let ((target-file
          (cond
@@ -36,3 +40,6 @@
 
 (define-key global-map (kbd "M-RET") 'aieis/open-terminal)
 (define-key global-map (kbd "M-S-<return>") 'aieis/open-default)
+(provide 'sys-utils)
+;;; sys-utils.el ends here
+
