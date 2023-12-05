@@ -1,4 +1,5 @@
 ;;; init.el --- My Emacs configuration -*- lexical-binding: t; -*-
+;;; Commentary:
 ;;; Code:
 
 (require 'org)
