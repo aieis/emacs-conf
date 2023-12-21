@@ -22,29 +22,29 @@
 * Defaults
 ** Default Options
    #+BEGIN_SRC emacs-lisp
-     (column-number-mode t)
-     (setq display-buffer-base-action '(display-buffer-reuse-window (reusable-frames . 1)))
-     (setq menu-bar-mode nil)
-     (setq tool-bar-mode nil)
-     (setq display-line-numbers-type t)
-     (global-display-line-numbers-mode t)
-     (set-scroll-bar-mode nil)
-     (global-auto-revert-mode t)
-     (global-hl-line-mode t)
-     (blink-cursor-mode 0)
-     (setq-default truncate-lines t)
-     (setq-default indent-tabs-mode nil)
-     (electric-pair-mode 1)
-     (setq delete-old-versions t)
-     (recentf-mode 1)
-     (setq native-comp-async-report-warnings-errors 'silent)
-     (setq org-startup-indented t)
-     (setq org-hide-leading-stars t)
-     (setq gc-cons-threshold (* 100 1024 1024))
-     (setq read-process-output-max (* 1024 1024))
-     (setq lsp-pyright-multi-root nil)
+     (custom-set-variables
+      '(column-number-mode t)
+      '(display-buffer-base-action '(display-buffer-reuse-window (reusable-frames . 1)))
+      '(menu-bar-mode nil)
+      '(tool-bar-mode nil)
+      '(display-line-numbers-type t)
+      '(global-display-line-numbers-mode t)
+      '(scroll-bar-mode nil)
+      '(global-auto-revert-mode t)
+      '(global-hl-line-mode t)
+      '(blink-cursor-mode 0)
+      '(truncate-lines t)
+      '(indent-tabs-mode nil)
+      '(electric-pair-mode 1)
+      '(delete-old-versions t)
+      '(recentf-mode 1)
+      '(native-comp-async-report-warnings-errors 'silent)
+      '(org-startup-indented t)
+      '(org-hide-leading-stars t)
+      '(gc-cons-threshold (* 100 1024 1024))
+      '(read-process-output-max (* 1024 1024)))
    #+END_SRC
-
+   
 ** Font
 #+BEGIN_SRC emacs-lisp
   (setq aieis/font-family "Iosevka")
@@ -80,7 +80,9 @@
 * packages
 #+BEGIN_SRC emacs-lisp
   (setq aieis/packages
-        '(marginalia
+        '(
+          org-roam
+          marginalia
           consult
           embark
           embark-consult
@@ -107,11 +109,11 @@
 #+END_SRC
 * Install Packages
 #+BEGIN_SRC emacs-lisp
-  (defun aieis/install-packages ()
+  (defun aieis/install-packages (packages)
       (interactive)
-      (dolist (package aieis/packages)
+      (dolist (package packages)
         (straight-use-package package)))
-  (aieis/install-packages)
+  (aieis/install-packages aieis/packages)
 #+END_SRC
   
 * Load Custom Files
@@ -121,7 +123,15 @@
   (load "read-only-enhanced")
   (load "filemanager")
   (load "sys-utils")
+  (load "sys-vars")
   (load "proglang")
+  (load "prog-ue")
+  (load "local")
+  (load "agenda")
+  (load "org-setup")
+  (defvar aieis/local-packages)
+  (aieis/install-packages aieis/packages)
+  (aieis/install-packages aieis/local-packages)
  #+END_SRC
 * Undo Tree
    #+BEGIN_SRC emacs-lisp
@@ -132,9 +142,9 @@
      ;;   (global-undo-tree-mode))
    #+END_SRC
    
-* Org Mode
+* COMMENT Org Mode
   #+BEGIN_SRC emacs-lisp
-    (load "agenda")
+
     (use-package org
       :config
       (define-key global-map (kbd "C-c a") 'aieis/org-agenda)
@@ -143,7 +153,7 @@
     (use-package org-roam
       :straight t
       :custom
-      (org-roam-directory (file-truename "~/notes"))
+
       :bind (("C-c n l" . org-roam-buffer-toggle)
              ("C-c n f" . org-roam-node-find)
              ("C-c n g" . org-roam-graph)
