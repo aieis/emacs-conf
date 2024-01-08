@@ -19,7 +19,8 @@
 (provide 'local-restrict)
 ;;; local-restrict.el ends here"
    nil
-   (concat (file-name-directory (or load-file-name buffer-file-name)) "tmp.el")))
+   (concat (file-name-directory (or load-file-name buffer-file-name)) "tmp.el"))
+  (load "local-restrict" :noerror))
 
 (setq-default aieis/local-packages
               (list 'ahk-mode))
