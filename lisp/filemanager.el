@@ -1,3 +1,6 @@
+;;; filemanager.el -- setup the dired filemanager
+;;; Commentary:
+;;; Code:
 (require 'dired )
 (setq dired-recursive-copies 'top)
 (setq dired-recursive-deletes 'top)
@@ -12,6 +15,7 @@
 (define-key dired-mode-map "." #'dired-hide-dotfiles-mode)
 
 (defun aieis/dired-open-new ()
+  "Open a new frame with a Dired buffer."
   (interactive)
   (let ((target-dir dired-directory))
     (select-frame-set-input-focus (make-frame))
@@ -19,6 +23,7 @@
 
 
 (defun aieis/dired-open-new-file()
+  "Open a new frame with targeted file."
   (interactive)
   (let ((target-file (dired-get-file-for-visit)))
     (select-frame-set-input-focus (make-frame))
@@ -26,6 +31,7 @@
 
 
 (defun aieis--/add-jump-directory (kb target-dir)
+  "Add a shortcut, KB, to jump to a target directory TARGET-DIR in a Dired buffer."
   (define-key dired-mode-map (kbd (concat "SPC g " kb)) `(lambda () (interactive) (find-file ,target-dir))))
 
 
@@ -49,8 +55,13 @@
            ("w n" "~/WorkSpace/PY_NCLLauncher/")))))
 
 
-(mapcar #'(lambda (vls) (aieis--/add-jump-directory (car vls) (car (cdr vls)))) aieis--dirs)
+(mapc #'(lambda (vls) (aieis--/add-jump-directory (car vls) (car (cdr vls)))) aieis--dirs)
 
 (define-key dired-mode-map (kbd "SPC n r") #'aieis/dired-open-new)
 (define-key dired-mode-map (kbd "SPC n f") #'aieis/dired-open-new-file)
+
+(require 'utils)
 (define-key dired-mode-map (kbd "SPC q") #'aieis/force-delete-window)
+
+(provide 'filemanager)
+;;; filemanager.el ends here

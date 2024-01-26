@@ -1,6 +1,19 @@
+;;; org-setup.el --- Setup org environment
+;;; Commentary:
+;;; Code:
 (with-eval-after-load 'org
   (define-key global-map (kbd "C-c a") 'aieis/org-agenda)
   (define-key global-map (kbd "C-c c") 'org-capture)
+
+  (custom-set-variables
+   '(org-return-follows-link t))
+  
+  (let ((cmd-pairs
+         '(("M-N" org-move-subtree-down)
+           ("M-P" org-move-subtree-up))))
+    
+    (mapc #'(lambda (pair) (define-key org-mode-map (kbd (car pair)) (cadr pair))) cmd-pairs))
+
   (setq org-capture-templates
         `(("b"
            "Template for adding a task"
@@ -17,6 +30,7 @@
            "* %t %?"))))
 
 (setq-default org-roam-directory (file-truename "~/notes"))
+
 (require 'org-roam)
 (with-eval-after-load 'org-roam
   (define-key global-map (kbd "C-c n l") 'org-roam-buffer-toggle)
@@ -28,3 +42,6 @@
   (org-roam-db-autosync-mode)
   ;; If using org-roam-protocol
   (require 'org-roam-protocol))
+
+(provide 'org-setup)
+;;; org-setup.el ends here
