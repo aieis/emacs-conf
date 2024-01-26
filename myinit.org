@@ -5,17 +5,18 @@
    #+BEGIN_SRC emacs-lisp
      (defvar bootstrap-version)
      (let ((bootstrap-file
-	    (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-	   (bootstrap-version 6))
+            (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+           (bootstrap-version 6))
        (unless (file-exists-p bootstrap-file)
-	 (with-current-buffer
-	     (url-retrieve-synchronously
-	      "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
-	      'silent 'inhibit-cookies)
-	   (goto-char (point-max))
-	   (eval-print-last-sexp)))
+         (with-current-buffer
+             (url-retrieve-synchronously
+              "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+              'silent 'inhibit-cookies)
+           (goto-char (point-max))
+           (eval-print-last-sexp)))
        (load bootstrap-file nil 'nomessage))
      (setq-default straight-use-package-by-default t)
+     (setq straight-check-for-modifications 'live)
      (straight-use-package 'use-package)
      (use-package org :straight (:type built-in))
    #+END_SRC
@@ -42,14 +43,15 @@
       '(org-startup-indented t)
       '(org-hide-leading-stars t)
       '(gc-cons-threshold (* 100 1024 1024))
-      '(read-process-output-max (* 1024 1024)))
+      '(read-process-output-max (* 1024 1024))
+      '(custom-enabled-themes '(leuven-dark)))
    #+END_SRC
    
 ** Font
 #+BEGIN_SRC emacs-lisp
   (setq aieis/font-family "Iosevka")
-  (setq aieis/font-size 10)
-  (setq aieis/font-list '(("Iosevka" . 10)))
+  (setq aieis/font-size 12)
+  (setq aieis/font-list '(("Iosevka" . 14)))
 
   (defun frame-font-setup
       (&rest ...)
