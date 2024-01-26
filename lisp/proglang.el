@@ -62,7 +62,7 @@
 ;; LSP Mode
 
 (custom-set-variables
- '(lsp-keymap-prefix "C-l")
+ '(lsp-keymap-prefix "C-c l")
  '(lsp-pyright-multi-root nil))
 
 (with-eval-after-load 'lsp
