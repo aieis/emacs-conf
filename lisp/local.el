@@ -19,7 +19,7 @@
 (provide 'local-restrict)
 ;;; local-restrict.el ends here"
    nil
-   (concat (file-name-directory (or load-file-name buffer-file-name)) "tmp.el"))
+   (concat (file-name-directory (or load-file-name buffer-file-name)) "local-restrict.el"))
    (load "local-restrict" :noerror))
 
 (provide 'local)
