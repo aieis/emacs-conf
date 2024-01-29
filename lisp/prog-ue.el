@@ -2,8 +2,6 @@
 ;;; Commentary:
 ;;; Code:
 
-
-
 (require 'sys-vars.el)
 (require 'dash)
 

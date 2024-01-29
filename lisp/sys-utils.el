@@ -41,4 +41,3 @@
 (define-key global-map (kbd "M-<return>") 'aieis/open-default)
 (provide 'sys-utils)
 ;;; sys-utils.el ends here
-
