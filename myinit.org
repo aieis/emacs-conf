@@ -46,28 +46,7 @@
       '(read-process-output-max (* 1024 1024))
       '(custom-enabled-themes '(leuven-dark)))
    #+END_SRC
-   
-** Font
-#+BEGIN_SRC emacs-lisp
-  (setq aieis/font-family "Iosevka")
-  (setq aieis/font-size 12)
-  (setq aieis/font-list '(("Iosevka" . 14)))
 
-  (defun frame-font-setup
-      (&rest ...)
-    ;; (remove-hook 'focus-in-hook #'frame-font-setup)
-    (unless (assoc 'font default-frame-alist)
-      (let* ((font-a (catch 'break
-                       (dolist (font-a aieis/font-list)
-                         (when (member (car font-a) (font-family-list))
-                           (throw 'break font-a)))))
-             (font (when (car font-a) (format "%s-%d" (car font-a) (cdr font-a)))))
-        (when font
-          (add-to-list 'default-frame-alist (cons 'font font))
-          (set-frame-font font t t)))))
-  (add-hook 'focus-in-hook #'frame-font-setup)
-#+END_SRC
-   
 ** Bell
 #+BEGIN_SRC emacs-lisp
   (defun aieis/terminal-visible-bell ()
@@ -117,7 +96,7 @@
         (straight-use-package package)))
   (aieis/install-packages aieis/packages)
 #+END_SRC
-  
+
 * Load Custom Files
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'load-path (concat user-emacs-directory "lisp/" ))
@@ -131,8 +110,8 @@
   (load "local")
   (load "agenda")
   (load "org-setup")
+  (load "font-setup")
   (defvar aieis/local-packages)
-  (aieis/install-packages aieis/packages)
   (aieis/install-packages aieis/local-packages)
  #+END_SRC
 
@@ -144,7 +123,7 @@
      ;;   :config
      ;;   (global-undo-tree-mode))
    #+END_SRC
-   
+
 * Eglot . Company
 #+BEGIN_SRC emacs-lisp
   (use-package company
@@ -152,7 +131,7 @@
     (setq company-selection-wrap-around t)
     :config
     (global-company-mode))
-  
+
 #+END_SRC
 * COMMENT Completions
   #+BEGIN_SRC emacs-lisp
@@ -337,7 +316,7 @@
               (reusable-frames . t))
              ("\\*.*shell\\*"
               (display-buffer-reuse-mode-window display-buffer-in-direction)
-              (direction . right))	 
+              (direction . right))
              ("\\*.*[C|c]ompilation.*\\*"
               (display-buffer-reuse-mode-window display-buffer-in-side-window)
               (side . right))
@@ -357,7 +336,7 @@
               (reusable-frames . visible)))))
       (setq display-buffer-alist (append display-buffer-alist add-display-buffer-alist)))
    #+END_SRC
-   
+
 #+END_SRC
 * Themes
 #+BEGIN_SRC emacs-lisp

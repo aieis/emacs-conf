@@ -4,23 +4,16 @@
 ;;; Code:
 ;; Temporary Packages
 
-(unless (load "local-restrict" :noerror)
-  (write-region
-   ";;; local-restrict.el ---  Local variables and configuration (os / work / home )
-;;; Commentary:
-;;; Keep local / temporary data in here
 
-;;; Code:
 
-;; Temporary Packages
-(setq-default aieis/local-packages
-              (list))
+(let ((lr-file (concat (file-name-directory (or load-file-name buffer-file-name)) "local-restrict.el"))
+      (lr-default-file (concat (file-name-directory (or load-file-name buffer-file-name)) "local-restrict-default.el")))
+  (unless (file-exists-p lr-file)
+    (copy-file
+     lr-default-file
+     lr-file)))
 
-(provide 'local-restrict)
-;;; local-restrict.el ends here"
-   nil
-   (concat (file-name-directory (or load-file-name buffer-file-name)) "local-restrict.el"))
-   (load "local-restrict" :noerror))
 
+(load "local-restrict")
 (provide 'local)
 ;;; local.el ends here

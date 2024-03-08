@@ -3,8 +3,6 @@
 ;;; Code:
 
 (require 'sys-vars.el)
-(require 'dash)
-
 
 (unless (eq aieis/ue-setup nil)
   (setq-default aieis/llvm-versions
