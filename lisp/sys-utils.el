@@ -16,7 +16,7 @@
      ((string-equal system-type "windows-nt")
       (w32-shell-execute "open" "alacritty" (concat "--working-directory " (expand-file-name target-dir))))
      ((string-equal system-type "gnu/linux")
-      (start-process "" nil "alacrity" (concat "--working-directory " (expand-file-name target-dir)))))))
+      (start-process "" nil "alacritty" (concat "--working-directory " (expand-file-name target-dir)))))))
 
 
 (defun aieis/open-default (&optional file)
