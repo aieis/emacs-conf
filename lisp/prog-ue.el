@@ -6,7 +6,7 @@
 
 (unless (eq aieis/ue-setup nil)
   (setq-default aieis/llvm-versions
-                (--filter (eq (or (string-equal "." it) (string-equal ".." it)) nil)
+                (seq-filter (lambda (it)(eq (or (string-equal "." it) (string-equal ".." it)) nil))
                           (directory-files aieis/llvm-root-path)))
 
   (defun aieis/llvm-activate (tc)
