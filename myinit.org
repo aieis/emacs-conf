@@ -111,8 +111,13 @@
   (load "agenda")
   (load "org-setup")
   (load "font-setup")
+  (load "async-shell")
   (defvar aieis/local-packages)
   (aieis/install-packages aieis/local-packages)
+
+  (add-to-list 'load-path (concat user-emacs-directory "manual-package/" ))
+  (load "odin-mode")
+
  #+END_SRC
 
 * Undo Tree
