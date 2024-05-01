@@ -3,32 +3,23 @@
 ;;; Code:
 
 (custom-set-variables
- '(js-indent-level 2)
+ '(js-indent-level 4)
  '(c-basic-offset 4)
  '(global-flycheck-mode 1))
 
-;; Python
-(declare-function vc-git-root "vc-git.el")
-(defun aieis/pyrightconfig-write ()
-  "Setup the python virtual environment."
-  (interactive)
-  (let* ((input (read-string "venv:"))
-         (venv-dir (file-truename input))
-         (venv-file-name (directory-file-name venv-dir))
-         (venvPath (file-name-directory venv-file-name))
-         (venv (file-name-base venv-file-name))
-         (base-dir (vc-git-root default-directory))
-         (out-file (expand-file-name "pyrightconfig.json" base-dir))
-         (out-contents
-          (json-encode
-           (list
-            :venvPath venvPath
-            :venv venv ))))
-    (with-temp-file out-file (insert out-contents))))
+(setq-default aieis/lsp-servers '())
+(setq-default aieis/lsp-mode-hooks '())
+(add-to-list 'aieis/lsp-mode-hooks 'c-mode-common-hook)
+(add-to-list 'aieis/lsp-mode-hooks 'rust-mode-hook)
+(add-to-list 'aieis/lsp-mode-hooks 'python-mode-hook)
+(add-to-list 'aieis/lsp-mode-hooks 'haskell-mode-hook)
 
-(with-eval-after-load 'pyvenv
-  (require 'pyvenv-auto)
-  (add-hook 'python-mode-hook 'pyvenv-auto-run))
+
+(add-to-list 'load-path (concat user-emacs-directory "lisp/lang" ))
+(load "python")
+(load "js")
+(load "odin")
+
 
 ;; FlyCheck
 (declare-function aieis/frame-visible? "utils.el")
@@ -38,14 +29,12 @@
   (if (and (derived-mode-p 'prog-mode) (bound-and-true-p flycheck-mode) (aieis/frame-visible? "\\*Flycheck errors*"))
       (call-interactively 'flycheck-list-errors)))
 
-;; File Association
-(push '("\\.js[x]?\\'" . javascript-mode) auto-mode-alist)
-(push '("\\.ts[x]?\\'" . javascript-mode) auto-mode-alist)
 
 
 ;; Hooks
 (add-hook 'flycheck-mode-hook 'aieis/flycheck-show-buffer-diagnostics-hook)
 (add-hook 'window-configuration-change-hook 'aieis/flycheck-show-buffer-diagnostics-hook)
+
 
 ;; Display
 (let ((n-disp-list
@@ -66,20 +55,30 @@
  '(lsp-pyright-multi-root nil))
 
 (with-eval-after-load 'lsp
-  (declare-function lsp-deferred "../myinit.org")
+  (declare-function lsp-deferred "../myinit.el")
   (declare-function lsp-enable-imenu "lsp-mode.el")
+  (declare-function lsp-register-client "lsp-mode.el")
+  (declare-function make-lsp-client "lsp-mode.el")
+  (declare-function lsp-stdio-connection "lsp-mode.el")
   (declare-function pyvenv-auto-run "pyvenv-auto.el")
   
   (require 'lsp-pyright)
   (require 'lsp-haskell)
 
-  (add-hook 'c-mode-common-hook #'lsp-deferred)
+  (dolist (hook aieis/lsp-mode-hooks)
+    (add-hook 'hook #'lsp-deferred))
 
-  (add-hook 'rust-mode-hook #'lsp-deferred)
+  (dolist (var aieis/lsp-servers)
+    (let* ((mode (car var))
+           (executable-path (cadr var))
+           (server-id (caddr var)))
+      (lsp-register-client
+       (make-lsp-client :new-connection (lsp-stdio-connection executable-path)
+		        :major-modes (list mode)
+		        :server-id server-id
+		        :multi-root t))))
 
-  (add-hook 'python-mode-hook (lambda () (pyvenv-auto-run) (lsp-deferred)))
-
-  (add-hook 'haskell-mode-hook #'lsp-deferred)
+  (add-hook 'odin-mode-hook #'lsp)))
 
   (lsp-enable-imenu)
   (custom-set-variables
