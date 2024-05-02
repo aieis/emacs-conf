@@ -116,5 +116,5 @@
 (define-key prog-mode-map (kbd "C-c f d") 'flycheck-list-errors)
 (define-key prog-mode-map (kbd "C-c f n") 'flycheck-next-error)
 
-(provide 'porglang)
+(provide 'proglang)
 ;;; proglang.el ends here

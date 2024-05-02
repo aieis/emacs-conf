@@ -28,8 +28,6 @@
       '(display-buffer-base-action '(display-buffer-reuse-window (reusable-frames . 1)))
       '(menu-bar-mode nil)
       '(tool-bar-mode nil)
-      '(display-line-numbers-type t)
-      '(global-display-line-numbers-mode t)
       '(scroll-bar-mode nil)
       '(global-auto-revert-mode t)
       '(global-hl-line-mode t)

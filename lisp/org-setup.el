@@ -1,6 +1,10 @@
 ;;; org-setup.el --- Setup org environment
 ;;; Commentary:
 ;;; Code:
+(require 'org)
+(require 'org-capture)
+(require 'org-roam)
+
 (with-eval-after-load 'org
   (define-key global-map (kbd "C-c a") 'aieis/org-agenda)
   (define-key global-map (kbd "C-c c") 'org-capture)
@@ -31,7 +35,6 @@
 
 (setq-default org-roam-directory (file-truename "~/notes"))
 
-(require 'org-roam)
 (with-eval-after-load 'org-roam
   (define-key global-map (kbd "C-c n l") 'org-roam-buffer-toggle)
   (define-key global-map (kbd "C-c n f") 'org-roam-node-find)
