@@ -1,5 +1,8 @@
-;; Python
-(declare-function vc-git-root "vc-git.el")
+;;; aieis-lang-python.el -- python setup
+;;; Commentary:
+;;; Code:
+(require 'vc-git)
+
 (defun aieis/pyrightconfig-write ()
   "Setup the python virtual environment."
   (interactive)
@@ -17,6 +20,5 @@
             :venv venv ))))
     (with-temp-file out-file (insert out-contents))))
 
-(with-eval-after-load 'pyvenv
-  (require 'pyvenv-auto)
-  (add-hook 'python-mode-hook 'pyvenv-auto-run))
+(provide 'aieis-lang-python)
+;;; aieis-lang-python.el ends here
