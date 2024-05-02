@@ -141,43 +141,6 @@
     (global-company-mode))
 
 #+END_SRC
-* COMMENT Completions
-  #+BEGIN_SRC emacs-lisp
-    (setq completions-format 'one-column)
-    (defun aieis/in-completions ()
-      (string-match-p "\\*Completions\\*" (buffer-name)))
-
-    (defun aieis/next-completion ()
-      (interactive)
-      (if (aieis/in-completions)
-          (if (eobp)
-              (when-let ((mini (active-minibuffer-window))) (select-window mini))
-            (next-completion 1))))
-
-    (defun aieis/prev-completion ()
-      (interactive)
-      (if (aieis/in-completions)
-          (if (bobp)
-              (when-let ((mini (active-minibuffer-window))) (select-window mini))
-          (next-completion -1))))
-
-    (defun aieis/switch-to-completions-top ()
-      (interactive)
-      (switch-to-completions)
-      (goto-line 1)
-      (next-completion 1))
-
-    (defun aieis/switch-to-completions-bot ()
-      (interactive)
-      (aieis/switch-to-completions-top)
-      (next-completion -1))
-
-    (define-key minibuffer-local-map (kbd "C-n") 'aieis/switch-to-completions-top)
-    (define-key minibuffer-local-map (kbd "C-p") 'aieis/switch-to-completions-bot)
-    (define-key completion-list-mode-map (kbd "C-n") 'aieis/next-completion)
-    (define-key completion-list-mode-map (kbd "C-p") 'aieis/prev-completion)
-
-  #+END_SRC
 
 * Embark . Consult . Orderless . Marginalia
   #+BEGIN_SRC emacs-lisp
