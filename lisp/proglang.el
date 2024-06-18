@@ -4,8 +4,7 @@
 
 (custom-set-variables
  '(js-indent-level 4)
- '(c-basic-offset 4)
- '(global-flycheck-mode 1))
+ '(c-basic-offset 4))
 
 (require 'aieis-lang-common)
 (require 'aieis-lang-python)
@@ -30,18 +29,23 @@
 (add-hook 'flycheck-mode-hook 'aieis/flycheck-show-buffer-diagnostics-hook)
 (add-hook 'window-configuration-change-hook 'aieis/flycheck-show-buffer-diagnostics-hook)
 
-
-;; Display
 (let ((n-disp-list
        '("\\*Flycheck errors.*"
          (display-buffer-reuse-mode-window display-buffer-pop-up-frame)
          (reusable-frames . visible))))
   (add-to-list 'display-buffer-alist n-disp-list))
 
-;; Flycheck
+
 (with-eval-after-load 'flycheck
   (defvar flycheck-disabled-checkers)
   (add-to-list 'flycheck-disabled-checkers 'emacs-lisp-checkdoc))
+
+
+(require 'company)
+(global-company-mode)
+(setq company-selection-wrap-around t)
+(setq company-idle-delay nil)
+
 
 ;; LSP Mode
 
@@ -100,8 +104,8 @@
  '(lsp-signature-auto-activate t)
  '(lsp-signature-render-documentation t)
  '(lsp-signature-doc-lines 10)
- 
- '(lsp-ui-sideline-show-hover t)
+ '(lsp-ui-sideline-enable nil)
+ '(lsp-ui-sideline-show-hover nil)
  '(lsp-ui-sideline-delay 0.5)
  '(lsp-ui-doc-delay 5)
  '(lsp-ui-sideline-ignore-duplicates t)
@@ -115,6 +119,8 @@
 ;; Keymap Keys
 (define-key prog-mode-map (kbd "C-c f d") 'flycheck-list-errors)
 (define-key prog-mode-map (kbd "C-c f n") 'flycheck-next-error)
+(define-key prog-mode-map (kbd "C-c f f") 'flycheck-mode)
+(define-key prog-mode-map (kbd "C-.") 'company-complete)
 
 (provide 'proglang)
 ;;; proglang.el ends here

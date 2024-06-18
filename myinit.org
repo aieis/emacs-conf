@@ -121,25 +121,6 @@
 
  #+END_SRC
 
-* Undo Tree
-   #+BEGIN_SRC emacs-lisp
-     ;; (use-package undo-tree
-     ;;   :init
-     ;;   (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
-     ;;   :config
-     ;;   (global-undo-tree-mode))
-   #+END_SRC
-
-* Eglot . Company
-#+BEGIN_SRC emacs-lisp
-  (use-package company
-    :init
-    (setq company-selection-wrap-around t)
-    :config
-    (global-company-mode))
-
-#+END_SRC
-
 * Embark . Consult . Orderless . Marginalia
   #+BEGIN_SRC emacs-lisp
     (use-package orderless

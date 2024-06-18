@@ -3,6 +3,11 @@
 
 ;;; Code:
 
+(require 'comint)
+
+(custom-set-variables
+ '(async-shell-command-buffer 'rename-buffer))
+
 (defun aieis/revert-shell-command ()
   "Terminate current process and restart it."
   (interactive)

@@ -12,6 +12,7 @@
 
 (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
 
+
 (define-key dired-mode-map "." #'dired-hide-dotfiles-mode)
 
 (defun aieis/dired-open-new ()
@@ -37,7 +38,6 @@
 
 (unbind-key "SPC" dired-mode-map)
 
-
 (setq-local
  aieis--dirs
  (cond
@@ -62,6 +62,9 @@
 
 (require 'utils)
 (define-key dired-mode-map (kbd "SPC q") #'aieis/force-delete-window)
+
+(require 'aieis-image-dired)
+(define-key dired-mode-map (kbd "SPC p") `(lambda () (interactive) (image-dired (dired-get-file-for-visit))))
 
 (provide 'filemanager)
 ;;; filemanager.el ends here
