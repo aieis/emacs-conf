@@ -70,6 +70,7 @@
           vertico
           transpose-frame
 
+          company
           haskell-mode
           rust-mode
           pyvenv
