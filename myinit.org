@@ -99,6 +99,7 @@
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'load-path (concat user-emacs-directory "lisp/" ))
   (add-to-list 'load-path (concat user-emacs-directory "lisp/lang/" ))
+  (add-to-list 'load-path (concat user-emacs-directory "lisp/mode/" ))
   (setq flycheck-emacs-lisp-load-path 'inherit)
 
   (load "utils")
