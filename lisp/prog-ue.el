@@ -3,6 +3,7 @@
 ;;; Code:
 
 (require 'sys-vars.el)
+(push '("\\.uproject\\'" . json-mode) auto-mode-alist)
 
 (unless (eq aieis/ue-setup nil)
   (setq-default aieis/llvm-versions

@@ -3,22 +3,18 @@
 * Bootstrap
 ** Package Repositories
    #+BEGIN_SRC emacs-lisp
-     (defvar bootstrap-version)
-     (let ((bootstrap-file
-            (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-           (bootstrap-version 6))
-       (unless (file-exists-p bootstrap-file)
-         (with-current-buffer
-             (url-retrieve-synchronously
-              "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
-              'silent 'inhibit-cookies)
-           (goto-char (point-max))
-           (eval-print-last-sexp)))
-       (load bootstrap-file nil 'nomessage))
-     (setq-default straight-use-package-by-default t)
-     (setq straight-check-for-modifications 'live)
-     (straight-use-package 'use-package)
-     (use-package org :straight (:type built-in))
+     (require 'package)
+     (setq package-enable-at-startup nil)
+     (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+     (package-initialize)
+
+     ;; Bootstrap `use-package'
+     (unless (package-installed-p 'use-package)
+       (package-refresh-contents)
+       (package-install 'use-package))
+
+     (eval-when-compile
+       (require 'use-package))
    #+END_SRC
 * Defaults
 ** Default Options
@@ -61,6 +57,7 @@
   (setq aieis/packages
         '(
           org-roam
+          magit
           marginalia
           consult
           embark
@@ -83,21 +80,27 @@
 
           flycheck
 
+          moe-theme
+          modus-themes
           all-the-icons
           all-the-icons-dired
-          dired-hide-dotfiles ))
+          dired-hide-dotfiles))
 #+END_SRC
 * Install Packages
 #+BEGIN_SRC emacs-lisp
   (defun aieis/install-packages (packages)
       (interactive)
       (dolist (package packages)
-        (straight-use-package package)))
+        (package-install package)))
   (aieis/install-packages aieis/packages)
 #+END_SRC
 
 * Load Custom Files
 #+BEGIN_SRC emacs-lisp
+  (add-to-list 'load-path (concat user-emacs-directory "manual-package/" ))
+  (load "odin-mode")
+  (load "json-mode")
+
   (add-to-list 'load-path (concat user-emacs-directory "lisp/" ))
   (add-to-list 'load-path (concat user-emacs-directory "lisp/lang/" ))
   (add-to-list 'load-path (concat user-emacs-directory "lisp/mode/" ))
@@ -117,10 +120,6 @@
   (load "async-shell")
   (defvar aieis/local-packages)
   (aieis/install-packages aieis/local-packages)
-
-  (add-to-list 'load-path (concat user-emacs-directory "manual-package/" ))
-  (load "odin-mode")
-
  #+END_SRC
 
 * Embark . Consult . Orderless . Marginalia
@@ -232,6 +231,7 @@
     (define-key global-map (kbd "C-M-o") #'aieis/insert-line-above)
     (define-key global-map (kbd "C-k") #'aieis/kill-line-zero-space)
     (define-key global-map (kbd "M-]") #'aieis/man-at-point)
+    (define-key global-map (kbd "C-o") #'recentf-open)
   #+END_SRC
 ** Window Movement
 #+BEGIN_SRC emacs-lisp

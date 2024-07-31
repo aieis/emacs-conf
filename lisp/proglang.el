@@ -5,11 +5,13 @@
 (custom-set-variables
  '(js-indent-level 4)
  '(c-basic-offset 4))
+(c-set-offset 'substatement-open 0)
 
 (require 'aieis-lang-common)
 (require 'aieis-lang-python)
 (require 'aieis-lang-js)
 (require 'aieis-lang-odin)
+(require 'aieis-lang-json)
 
 (add-to-list 'aieis/lsp-mode-hooks 'c-mode-common-hook)
 (add-to-list 'aieis/lsp-mode-hooks 'rust-mode-hook)
@@ -26,20 +28,14 @@
       (call-interactively 'flycheck-list-errors)))
 
 ;; Hooks
-(add-hook 'flycheck-mode-hook 'aieis/flycheck-show-buffer-diagnostics-hook)
-(add-hook 'window-configuration-change-hook 'aieis/flycheck-show-buffer-diagnostics-hook)
+;; (add-hook 'flycheck-mode-hook 'aieis/flycheck-show-buffer-diagnostics-hook)
+;; (add-hook 'window-configuration-change-hook 'aieis/flycheck-show-buffer-diagnostics-hook)
 
-(let ((n-disp-list
-       '("\\*Flycheck errors.*"
-         (display-buffer-reuse-mode-window display-buffer-pop-up-frame)
-         (reusable-frames . visible))))
-  (add-to-list 'display-buffer-alist n-disp-list))
-
-
-(with-eval-after-load 'flycheck
-  (defvar flycheck-disabled-checkers)
-  (add-to-list 'flycheck-disabled-checkers 'emacs-lisp-checkdoc))
-
+;; (let ((n-disp-list
+;;        '("\\*Flycheck errors.*"
+;;          (display-buffer-reuse-mode-window display-buffer-pop-up-frame)
+;;          (reusable-frames . visible))))
+;;   (add-to-list 'display-buffer-alist n-disp-list))
 
 (require 'company)
 (global-company-mode)

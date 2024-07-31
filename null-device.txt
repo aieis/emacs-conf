@@ -1,0 +1,49 @@
+[
+    {
+        "msg": "SetLaser",
+        "laserType": "Hokuyo",
+        "ip": "192.168.0.110",
+        "port": "5005",
+        "touchBoxes": [
+            {
+                "worldLocations": {
+                    "topLeft": [
+                        -26.0,
+                        -13.0
+                    ],
+                    "topRight": [
+                        -26.0,
+                        -37.0
+                    ],
+                    "bottomRight": [
+                        30.0,
+                        -37.0
+                    ],
+                    "bottomLeft": [
+                        34.0,
+                        -10.0
+                    ]
+                },
+                "reMap": {
+                    "x": [
+                        0.0,
+                        1.0
+                    ],
+                    "y": [
+                        0.0,
+                        1.0
+                    ]
+                }
+            }
+        ],
+        "BlobSettings": {
+            "MaxNumOfObjects": 100,
+            "RayMaxDistance": 20.0,
+            "MinLaserHitPoints": 5
+        },
+        "messageOut": {
+            "ip": "localhost",
+            "port": 5001
+        }
+    }
+]
