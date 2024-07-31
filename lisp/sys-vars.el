@@ -16,9 +16,11 @@
 
 
 (cond ((string-equal system-type "windows-nt")
-      (aieis/windows--set-vars))
-     ((string-equal system-type "gnu/linux")
-      (aieis/linux--set-vars)))
+       (require 'dos-w32)
+       (setq null-device (concat user-emacs-directory "null-device.txt"))
+       (aieis/windows--set-vars))
+      ((string-equal system-type "gnu/linux")
+       (aieis/linux--set-vars)))
 
 
 (provide 'sys-vars.el)
