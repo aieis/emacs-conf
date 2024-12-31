@@ -118,5 +118,9 @@
 (define-key prog-mode-map (kbd "C-c f f") 'flycheck-mode)
 (define-key prog-mode-map (kbd "C-.") 'company-complete)
 
+(define-key global-map (kbd "C-,") 'compile)
+(define-key global-map (kbd "C->") 'project-compile)
+(define-key global-map (kbd "C-@") 'delete-trailing-whitespace)
+
 (provide 'proglang)
 ;;; proglang.el ends here
