@@ -14,10 +14,7 @@
   (setq-default aieis/ue-root-path "/opt/unreal-engine"))
 
 
-
 (cond ((string-equal system-type "windows-nt")
-       (require 'dos-w32)
-       (setq null-device (concat user-emacs-directory "null-device.txt"))
        (aieis/windows--set-vars))
       ((string-equal system-type "gnu/linux")
        (aieis/linux--set-vars)))

@@ -98,14 +98,15 @@
 * Load Custom Files
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'load-path (concat user-emacs-directory "manual-package/" ))
+  (add-to-list 'load-path (concat user-emacs-directory "manual-package/" "lsp-bridge/"))
+
   (load "odin-mode")
   (load "json-mode")
-
+  
   (add-to-list 'load-path (concat user-emacs-directory "lisp/" ))
   (add-to-list 'load-path (concat user-emacs-directory "lisp/lang/" ))
   (add-to-list 'load-path (concat user-emacs-directory "lisp/mode/" ))
   (setq flycheck-emacs-lisp-load-path 'inherit)
-
   (load "utils")
   (load "read-only-enhanced")
   (load "filemanager")
