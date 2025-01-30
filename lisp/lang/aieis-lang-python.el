@@ -20,5 +20,11 @@
             :venv venv ))))
     (with-temp-file out-file (insert out-contents))))
 
+(use-package lsp-pyright
+  :ensure t
+  :custom (lsp-pyright-langserver-command "basedpyright"))
+(with-eval-after-load 'lsp
+  (setq lsp-ruff-ruff-args "--preview"))  
+
 (provide 'aieis-lang-python)
 ;;; aieis-lang-python.el ends here

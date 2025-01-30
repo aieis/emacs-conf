@@ -38,7 +38,8 @@
       '(org-hide-leading-stars t)
       '(gc-cons-threshold (* 100 1024 1024))
       '(read-process-output-max (* 1024 1024))
-      '(custom-enabled-themes '(leuven-dark)))
+      ;;'(custom-enabled-themes '(leuven-dark))
+      )
    #+END_SRC
 
 ** Bell
@@ -79,6 +80,7 @@
           lsp-pyright
 
           flycheck
+          string-inflection
 
           moe-theme
           modus-themes
@@ -264,15 +266,15 @@
   #+BEGIN_SRC emacs-lisp
     (let ((add-display-buffer-alist
            `(
-             ("."
-              nil
-              (reusable-frames . t))
+             ("HIDDEN BUFFER"
+              (display-buffer-no-window)
+              (allow-no-window . t))
              ("\\*.*shell\\*"
               (display-buffer-reuse-mode-window display-buffer-in-direction)
               (direction . right))
-             ("\\*.*[C|c]ompilation.*\\*"
-              (display-buffer-reuse-mode-window display-buffer-in-side-window)
-              (side . right))
+             ;; ("\\*.*[C|c]ompilation.*\\*"
+             ;;  (display-buffer-reuse-mode-window display-buffer-in-side-window)
+             ;;  (side . right))
              ("\\*Embark Actions\\*"
               (display-buffer-reuse-mode-window display-buffer-at-bottom)
               (window-height . fit-window-to-buffer)

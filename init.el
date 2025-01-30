@@ -2,8 +2,6 @@
 ;;; Commentary:
 ;;; Code:
 
-(require 'org)
-(org-babel-load-file (expand-file-name "myinit.org" user-emacs-directory))
 
 (put 'upcase-region 'disabled nil)
 
@@ -23,9 +21,9 @@
  '(blink-cursor-mode 0)
  '(c-basic-offset 4)
  '(column-number-mode t)
- '(custom-enabled-themes '(ef-cherie))
+ '(custom-enabled-themes '(vscode-dark-plus))
  '(custom-safe-themes
-   '("694dbeb8f98dddfb603a2fe0c04101f3fe457ee49bf90a6a581271e7f9c580c8" "841b6a0350ae5029d6410d27cc036b9f35d3bf657de1c08af0b7cbe3974d19ac" default))
+   '("39dd7106e6387e0c45dfce8ed44351078f6acd29a345d8b22e7b8e54ac25bac4" "d35afe834d1f808c2d5dc7137427832ccf99ad2d3d65d65f35cc5688404fdf30" "694dbeb8f98dddfb603a2fe0c04101f3fe457ee49bf90a6a581271e7f9c580c8" "841b6a0350ae5029d6410d27cc036b9f35d3bf657de1c08af0b7cbe3974d19ac" default))
  '(delete-old-versions t)
  '(display-buffer-base-action '(display-buffer-reuse-window (reusable-frames . 1)))
  '(electric-pair-mode 1)
@@ -61,6 +59,7 @@
  '(lsp-imenu-sort-methods '(position kind name))
  '(lsp-keymap-prefix "C-c l")
  '(lsp-pyls-plugins-flake8-enabled t)
+ '(lsp-pyright-langserver-command "basedpyright")
  '(lsp-pyright-multi-root nil)
  '(lsp-signature-auto-activate t)
  '(lsp-signature-doc-lines 10)
@@ -81,7 +80,7 @@
  '(org-return-follows-link t)
  '(org-startup-indented t)
  '(package-selected-packages
-   '(tree-sitter powershell yasnippet string-inflection glsl-mode ef-themes all-the-icons lsp-mode pyvenv haskell-mode embark consult vertico transpose-frame rust-mode pyvenv-auto org-roam orderless moe-theme modus-themes marginalia magit lsp-ui lsp-pyright lsp-haskell flycheck embark-consult dired-hide-dotfiles company all-the-icons-dired ahk-mode ace-window))
+   '(wgsl-mode monochrome-theme vscode-dark-plus-theme company-glsl tree-sitter powershell yasnippet string-inflection glsl-mode ef-themes all-the-icons lsp-mode pyvenv haskell-mode embark consult vertico transpose-frame rust-mode pyvenv-auto org-roam orderless moe-theme modus-themes marginalia magit lsp-ui lsp-pyright lsp-haskell flycheck embark-consult dired-hide-dotfiles company all-the-icons-dired ahk-mode ace-window))
  '(read-process-output-max (* 1024 1024) t)
  '(recentf-mode 1)
  '(scroll-bar-mode nil)
@@ -91,3 +90,7 @@
    '((use-package)
      (defvaralias losing-value woman-topic-history))))
 (put 'downcase-region 'disabled nil)
+
+(require 'org)
+(org-babel-load-file (expand-file-name "myinit.org" user-emacs-directory))
+

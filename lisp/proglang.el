@@ -7,6 +7,11 @@
  '(c-basic-offset 4))
 (c-set-offset 'substatement-open 0)
 
+(custom-set-variables
+ '(lsp-keymap-prefix "C-c l")
+ '(lsp-pyright-multi-root nil))
+
+
 (require 'aieis-lang-common)
 (require 'aieis-lang-python)
 (require 'aieis-lang-js)
@@ -44,10 +49,6 @@
 
 
 ;; LSP Mode
-
-(custom-set-variables
- '(lsp-keymap-prefix "C-c l")
- '(lsp-pyright-multi-root nil))
 
 (require 'lsp)
 (require 'lsp-pyright)
