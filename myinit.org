@@ -104,7 +104,7 @@
 
   (load "odin-mode")
   (load "json-mode")
-  
+
   (add-to-list 'load-path (concat user-emacs-directory "lisp/" ))
   (add-to-list 'load-path (concat user-emacs-directory "lisp/lang/" ))
   (add-to-list 'load-path (concat user-emacs-directory "lisp/mode/" ))
@@ -121,6 +121,7 @@
   (load "org-setup")
   (load "font-setup")
   (load "async-shell")
+  (load "misc-keybinds")
   (defvar aieis/local-packages)
   (aieis/install-packages aieis/local-packages)
  #+END_SRC

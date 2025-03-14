@@ -22,7 +22,9 @@
 
 (use-package lsp-pyright
   :ensure t
-  :custom (lsp-pyright-langserver-command "basedpyright"))
+  :custom
+  (lsp-pyright-langserver-command "pyright")
+  (lsp-pyright-multi-root nil))
 (with-eval-after-load 'lsp
   (setq lsp-ruff-ruff-args "--preview"))  
 

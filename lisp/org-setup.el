@@ -4,6 +4,7 @@
 (require 'org)
 (require 'org-capture)
 (require 'org-roam)
+(require 'f)
 
 (with-eval-after-load 'org
   (define-key global-map (kbd "C-c a") 'aieis/org-agenda)
@@ -33,7 +34,10 @@
            (file+headline "~/notes/snippets.org" "Snippet")
            "* %t %?"))))
 
-(setq-default org-roam-directory (file-truename "~/notes"))
+(let ((notes-dir (file-truename "~/notes")))
+  (if (f-exists? notes-dir)
+      (setq-default org-roam-directory notes-dir)
+    (message "Notes directory '%s' does not exist" notes-dir)))
 
 (with-eval-after-load 'org-roam
   (define-key global-map (kbd "C-c n l") 'org-roam-buffer-toggle)

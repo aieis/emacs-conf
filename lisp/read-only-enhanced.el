@@ -1,4 +1,10 @@
-  (defun wo-ctrl-c-map ()
+;;; read-only-enhanced.el --- Read only operations
+;;; Commentary:
+;;; Consider removing
+
+;;; Code:
+
+(defun wo-ctrl-c-map ()
   "Return a keymap freeing keys from control-modifier."
   (let ((newmap (make-sparse-keymap)))
     (mapc
@@ -42,3 +48,6 @@ The value is actually a list containing the original local map as element.")
 
 ;; `find-file-noselect' sets `buffer-read-only' directly:
 ;(add-hook 'find-file-hook #'wo-ctrl-c-when-read-only)
+
+(provide 'read-only-enhanced)
+;;; read-only-enhanced.el ends here

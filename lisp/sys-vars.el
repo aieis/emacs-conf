@@ -19,6 +19,5 @@
       ((string-equal system-type "gnu/linux")
        (aieis/linux--set-vars)))
 
-
-(provide 'sys-vars.el)
+(provide 'sys-vars)
 ;;; sys-vars.el ends here
