@@ -33,7 +33,7 @@
 (with-eval-after-load 'org-roam
   (org-roam-db-autosync-mode)
   ;; If using org-roam-protocol
-  (require 'org-roam-protocol)))
+  (require 'org-roam-protocol))
 
 (define-key global-map (kbd "C-c a") 'aieis/org-agenda)
 (define-key global-map (kbd "C-c c") 'org-capture)

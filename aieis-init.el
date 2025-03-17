@@ -209,7 +209,6 @@
 
 ;; Advanced Window Configurations
 (use-package ace-window
-  :ensure t
   :config
   (global-set-key (kbd "M-o") 'ace-window)
   (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
