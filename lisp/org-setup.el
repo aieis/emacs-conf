@@ -4,7 +4,6 @@
 (require 'org)
 (require 'org-capture)
 (require 'org-roam)
-(require 'f)
 
 (with-eval-after-load 'org
   (define-key global-map (kbd "C-c a") 'aieis/org-agenda)
@@ -35,7 +34,7 @@
            "* %t %?"))))
 
 (let ((notes-dir (file-truename "~/notes")))
-  (if (f-exists? notes-dir)
+  (if (file-exists-p notes-dir)
       (setq-default org-roam-directory notes-dir)
     (message "Notes directory '%s' does not exist" notes-dir)))
 

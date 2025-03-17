@@ -1,14 +1,12 @@
 ;;; prog-ue.el --- handling unreal engine
 ;;; Commentary:
 ;;; Code:
-(require 'f)
-
 (require 'sys-vars)
 
 (push '("\\.uproject\\'" . json-mode) auto-mode-alist)
 
 (defvar aieis/llvm-versions
-  (if (f-exists? aieis/llvm-root-path)
+  (if (f-exists-p aieis/llvm-root-path)
       (seq-filter (lambda (it)(eq (or (string-equal "." it) (string-equal ".." it)) nil))
                   (directory-files aieis/llvm-root-path))
     '()))
