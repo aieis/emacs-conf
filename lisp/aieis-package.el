@@ -12,7 +12,7 @@ PACKAGE is the package name and BODY is the rest."
 
   (declare (indent defun))
   `(progn
-     (add-to-list 'aieis/packages ',package)
+     (add-to-list 'aieis-packages ',package)
      (when (require 'use-package nil 'noerror)
        (use-package ,package ,@body))))
 
