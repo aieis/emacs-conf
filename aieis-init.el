@@ -126,36 +126,37 @@
 
 
 ;; M-x utilities and mini-buffer
-(use-package orderless
+(aieis/use-package orderless
   :custom (completion-styles '(orderless basic))
   (completion-category-overrides '((file (styles basic partial-completion)))))
 
-(use-package marginalia
+(aieis/use-package marginalia
   :config
   (marginalia-mode))
 
-(use-package embark
+(aieis/use-package embark
   :config
   (define-key global-map (kbd "C-;") #'embark-act)
   (define-key minibuffer-local-map (kbd "C-'") #'embark-collect)
   (define-key minibuffer-local-map (kbd "C-,") #'embark-become))
 
-(use-package consult
+(aieis/use-package consult
   :config
   (consult-customize consult-theme :preview-key '(:debounce 0.5 any)))
 
-(use-package embark-consult)
+(aieis/use-package embark-consult)
 
-(use-package vertico
+(aieis/use-package vertico
   :init
   (vertico-mode))
 
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
-(use-package savehist
+(aieis/use-package savehist
   :init
   (savehist-mode))
 
-(use-package magit)
+(aieis/use-package magit :defer t
+  :bind (("C-x g" . (lambda () (interactive) (require 'magit) (call-interactively 'magit-status)))))
 
 
 ;; Misc man functions
@@ -208,7 +209,7 @@
 
 
 ;; Advanced Window Configurations
-(use-package ace-window
+(aieis/use-package ace-window
   :config
   (global-set-key (kbd "M-o") 'ace-window)
   (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
@@ -242,10 +243,10 @@
   (setq display-buffer-alist (append display-buffer-alist add-display-buffer-alist)))
 
 ;; Themes
-(use-package moe-theme)
-(use-package modus-themes)
-(use-package ef-themes)
-(use-package ayu-theme)
+(aieis/use-package moe-theme)
+(aieis/use-package modus-themes)
+(aieis/use-package ef-themes)
+(aieis/use-package ayu-theme)
 
 (with-eval-after-load 'ayu-theme
   (load-theme 'ayu-dark t)

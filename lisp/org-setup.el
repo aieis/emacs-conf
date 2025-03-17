@@ -30,19 +30,22 @@
       (setq-default org-roam-directory notes-dir)
     (message "Notes directory '%s' does not exist" notes-dir)))
 
+(aieis/use-package org-roam :defer t)
+(aieis/use-package org-capture)
+
 (with-eval-after-load 'org-roam
   (org-roam-db-autosync-mode)
   ;; If using org-roam-protocol
   (require 'org-roam-protocol))
 
 (define-key global-map (kbd "C-c a") 'aieis/org-agenda)
-(define-key global-map (kbd "C-c c") 'org-capture)
+(define-key global-map (kbd "C-c c") (lambda () (interactive) (require 'org-capture) (call-interactively 'org-capture)))
+(define-key global-map (kbd "C-c n l") (lambda () (interactive) (require 'org-roam) (call-interactively 'org-roam-buffer-toggle)))
+(define-key global-map (kbd "C-c n f") (lambda () (interactive) (require 'org-roam) (call-interactively 'org-roam-node-find)))
+(define-key global-map (kbd "C-c n g") (lambda () (interactive) (require 'org-roam) (call-interactively 'org-roam-graph)))
+(define-key global-map (kbd "C-c n i") (lambda () (interactive) (require 'org-roam) (call-interactively 'org-roam-node-insert)))
+(define-key global-map (kbd "C-c n c") (lambda () (interactive) (require 'org-roam) (call-interactively 'org-roam-capture)))
+(define-key global-map (kbd "C-c n j") (lambda () (interactive) (require 'org-roam) (call-interactively 'org-roam-dailies-capture-today)))
 
-(define-key global-map (kbd "C-c n l") 'org-roam-buffer-toggle)
-(define-key global-map (kbd "C-c n f") 'org-roam-node-find)
-(define-key global-map (kbd "C-c n g") 'org-roam-graph)
-(define-key global-map (kbd "C-c n i") 'org-roam-node-insert)
-(define-key global-map (kbd "C-c n c") 'org-roam-capture)
-(define-key global-map (kbd "C-c n j") 'org-roam-dailies-capture-today)
 (provide 'org-setup)
 ;;; org-setup.el ends here

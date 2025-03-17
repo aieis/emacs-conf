@@ -42,11 +42,13 @@
 ;;          (reusable-frames . visible))))
 ;;   (add-to-list 'display-buffer-alist n-disp-list))
 
-(with-eval-after-load 'company
+(aieis/use-package company
+  :init
   (setq company-selection-wrap-around t)
-  (setq company-idle-delay nil))
+  (setq company-idle-delay nil)
+  :hook (prog-mode . company-mode))
 
-(add-hook 'prog-mode-hook 'company-mode)
+(aieis/use-package lsp :defer t)
 
 ;; LSP Mode
 (with-eval-after-load 'lsp
