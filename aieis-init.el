@@ -3,28 +3,43 @@
 
 ;;; Code:
 
+;;; Setup package
+(require 'package)
+(setq package-enable-at-startup nil)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+(package-initialize)
+
+;; Bootstrap `use-package'
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+(eval-when-compile
+  (require 'use-package))
+
 ;; Set Variables
+(setq column-number-mode t)
+(setq display-buffer-base-action '(display-buffer-reuse-window (reusable-frames . 1)))
+(setq menu-bar-mode nil)
+(setq tool-bar-mode nil)
+(setq scroll-bar-mode nil)
+(setq global-auto-revert-mode t)
+(setq global-hl-line-mode t)
+(setq blink-cursor-mode 0)
+(setq truncate-lines t)
+(setq indent-tabs-mode nil)
+(setq electric-pair-mode 1)
+(setq delete-old-versions t)
+(setq recentf-mode 1)
+(setq native-comp-async-report-warnings-errors 'silent)
+(setq org-startup-indented t)
+(setq org-hide-leading-stars t)
+(setq gc-cons-threshold (* 100 1024 1024))
+(setq read-process-output-max (* 1024 1024))
 
-(custom-set-variables
- '(column-number-mode t)
- '(display-buffer-base-action '(display-buffer-reuse-window (reusable-frames . 1)))
- '(menu-bar-mode nil)
- '(tool-bar-mode nil)
- '(scroll-bar-mode nil)
- '(global-auto-revert-mode t)
- '(global-hl-line-mode t)
- '(blink-cursor-mode 0)
- '(truncate-lines t)
- '(indent-tabs-mode nil)
- '(electric-pair-mode 1)
- '(delete-old-versions t)
- '(recentf-mode 1)
- '(native-comp-async-report-warnings-errors 'silent)
- '(org-startup-indented t)
- '(org-hide-leading-stars t)
- '(gc-cons-threshold (* 100 1024 1024))
- '(read-process-output-max (* 1024 1024)))
-
+(setq backup-directory-alist '(("" . "~/.emacs.d/backup/")))
+(setq auto-save-file-name-transforms `((".*" "~/.emacs.d/saves/" t)))
+(setq lock-file-name-transforms `((".*" "~/.emacs.d/lockfiles/" t)))
 
 (defun aieis/terminal-visible-bell ()
   "A friendlier visual bell effect."
@@ -33,6 +48,7 @@
 
 (setq visible-bell nil ring-bell-function 'aieis/terminal-visible-bell)
 
+(define-key global-map (kbd "M-J") 'delete-other-windows)
 (define-key global-map (kbd "C-o") 'recentf-open)
 (define-key global-map (kbd "M-j") 'other-window)
 (define-key global-map (kbd "M-k") (lambda () (interactive) (other-window -1)))
@@ -187,25 +203,54 @@
                (concat "/sudo:root@localhost:" file))))
 
 
-(setq backup-directory-alist '(("" . "~/.emacs.d/backup/")))
-(setq auto-save-file-name-transforms `((".*" "~/.emacs.d/saves/" t)))
-(setq lock-file-name-transforms `((".*" "~/.emacs.d/lockfiles/" t)))
-
 (define-key global-map (kbd "C-k") #'aieis/kill-line-zero-space)
 (define-key global-map (kbd "M-]") #'aieis/man-at-point)
 
-(provide 'aieis-init)
-;;; aieis-init.el ends here
-(define-key global-map (kbd "M-J") 'delete-other-windows)
 
-(defun aieis/enlarge-window (&optional DELTA)
-  (interactive)
-  (or DELTA (setq DELTA 1))
-  (enlarge-window (* DELTA 20)))
+;; Advanced Window Configurations
+(use-package ace-window
+  :ensure t
+  :config
+  (global-set-key (kbd "M-o") 'ace-window)
+  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+  (setq aw-background nil))
 
-(defun myprevious-window ()
-  (interactive)
-  (other-window -1))
+(let ((add-display-buffer-alist
+       `(
+         ("HIDDEN BUFFER"
+          (display-buffer-no-window)
+          (allow-no-window . t))
+         ("\\*.*shell\\*"
+          (display-buffer-reuse-mode-window display-buffer-in-direction)
+          (direction . right))
+         ;; ("\\*.*[C|c]ompilation.*\\*"
+         ;;  (display-buffer-reuse-mode-window display-buffer-in-side-window)
+         ;;  (side . right))
+         ("\\*Embark Actions\\*"
+          (display-buffer-reuse-mode-window display-buffer-at-bottom)
+          (window-height . fit-window-to-buffer)
+          (window-parameters . ((no-other-window . t)
+                                (mode-line-format . none))))
+         ("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+          nil
+          (window-parameters (mode-line-format . none)))
+         ("\\*Man .*"
+          (display-buffer-reuse-mode-window)
+          (reusable-frames . visible))
+         ("\\(\\*Agenda Commands.*\\|*Org Agenda.*\\)"
+          (display-buffer-reuse-mode-window)
+          (reusable-frames . visible)))))
+  (setq display-buffer-alist (append display-buffer-alist add-display-buffer-alist)))
+
+;; Themes
+(use-package moe-theme)
+(use-package modus-themes)
+(use-package ef-themes)
+(use-package ayu-theme)
+
+(with-eval-after-load 'ayu-theme
+  (load-theme 'ayu-dark t)
+  (set-face-attribute 'region nil ':extend t :background "royal blue"))
 
 (provide 'aieis-init)
 ;;; aieis-init.el ends here
