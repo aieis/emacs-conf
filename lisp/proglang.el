@@ -18,6 +18,15 @@
 (require 'aieis-lang-odin)
 (require 'aieis-lang-json)
 
+(require 'aieis-package)
+
+(aieis/use-package haskell-mode :defer t)
+(aieis/use-package lsp-haskell :defer t)
+(aieis/use-package rust-mode :defer t)
+(aieis/use-package pyvenv :defer t)
+(aieis/use-package pyvenv-auto :defer t)
+(aieis/use-package lsp-ui :defer t)
+
 (add-to-list 'aieis/lsp-mode-hooks 'c-mode-common-hook)
 (add-to-list 'aieis/lsp-mode-hooks 'rust-mode-hook)
 (add-to-list 'aieis/lsp-mode-hooks 'python-mode-hook)

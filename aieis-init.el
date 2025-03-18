@@ -3,34 +3,20 @@
 
 ;;; Code:
 
-;;; Setup package
-(require 'package)
-(setq package-enable-at-startup nil)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-(package-initialize)
-
-;; Bootstrap `use-package'
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-
-(eval-when-compile
-  (require 'use-package))
-
 ;; Set Variables
-(setq column-number-mode t)
+(column-number-mode t)
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(global-auto-revert-mode t)
+(global-hl-line-mode t)
+(blink-cursor-mode 0)
+(toggle-truncate-lines 1)
+(indent-tabs-mode -1)
+(electric-pair-mode 1)
+(recentf-mode 1)
 (setq display-buffer-base-action '(display-buffer-reuse-window (reusable-frames . 1)))
-(setq menu-bar-mode nil)
-(setq tool-bar-mode nil)
-(setq scroll-bar-mode nil)
-(setq global-auto-revert-mode t)
-(setq global-hl-line-mode t)
-(setq blink-cursor-mode 0)
-(setq truncate-lines t)
-(setq indent-tabs-mode nil)
-(setq electric-pair-mode 1)
 (setq delete-old-versions t)
-(setq recentf-mode 1)
 (setq native-comp-async-report-warnings-errors 'silent)
 (setq org-startup-indented t)
 (setq org-hide-leading-stars t)
@@ -53,48 +39,6 @@
 (define-key global-map (kbd "M-j") 'other-window)
 (define-key global-map (kbd "M-k") (lambda () (interactive) (other-window -1)))
 
-;; List of packages
-;; TODO: make more dynamic (some-sort of require)
-(setq-default
- aieis/packages
- '(org-roam
-    magit
-    marginalia
-    consult
-    embark
-    embark-consult
-    orderless
-    ace-window
-    vertico
-    transpose-frame
-
-    company
-    haskell-mode
-    rust-mode
-    pyvenv
-    pyvenv-auto
-
-    lsp-mode
-    lsp-ui
-    lsp-haskell
-    lsp-pyright
-
-    flycheck
-    string-inflection
-
-    moe-theme
-    modus-themes
-    all-the-icons
-    all-the-icons-dired
-    dired-hide-dotfiles))
-
-(defun aieis/install-packages (packages)
-  "Install all the packages in the list PACKAGES."
-
-  (interactive)
-  (dolist (package packages)
-    (package-install package)))
-
 (add-to-list 'load-path (concat user-emacs-directory "manual-package/" ))
 (add-to-list 'load-path (concat user-emacs-directory "manual-package/" "lsp-bridge/"))
 
@@ -104,6 +48,11 @@
 (add-to-list 'load-path (concat user-emacs-directory "lisp/" ))
 (add-to-list 'load-path (concat user-emacs-directory "lisp/lang/" ))
 (add-to-list 'load-path (concat user-emacs-directory "lisp/mode/" ))
+
+(require 'aieis-package)
+(aieis/use-package all-the-icons)
+(aieis/use-package all-the-icons-dired)
+(aieis/use-package dired-hide-dotfiles)
 
 (setq-default flycheck-emacs-lisp-load-path 'inherit)
 (require 'utils)
@@ -147,7 +96,7 @@
 (aieis/use-package embark-consult)
 
 (aieis/use-package vertico
-  :init
+  :config
   (vertico-mode))
 
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
@@ -251,6 +200,18 @@
 (with-eval-after-load 'ayu-theme
   (load-theme 'ayu-dark t)
   (set-face-attribute 'region nil ':extend t :background "royal blue"))
+
+
+(defun aieis/setup-init ()
+  "Setup emacs config files as completely as possible."
+  (interactive)
+  (setq-local aieis/setup-start-time (current-time))
+  (aieis/install-all-packages)
+  (message "Installation of packages elapsed: %.6f" (float-time (time-since aieis/setup-start-time)))
+  (setq-local aieis/load-init-time (current-time))
+  (load user-init-file)
+  (message "Init reload elapsed: %.6f" (float-time (time-since aieis/load-init-time)))
+  (message "Total setup time: %.6f" (float-time (time-since aieis/setup-start-time))))
 
 (provide 'aieis-init)
 ;;; aieis-init.el ends here
