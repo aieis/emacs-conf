@@ -2,14 +2,12 @@
 ;;; Commentary:
 ;;; Code:
 
-(custom-set-variables
- '(js-indent-level 4)
- '(c-basic-offset 4))
+(setq c-basic-offset 4)
+(setq js-indent-level 4)
 (c-set-offset 'substatement-open 0)
 
-(custom-set-variables
- '(lsp-keymap-prefix "C-c l")
- '(lsp-pyright-multi-root nil))
+(setq lsp-keymap-prefix "C-c l")
+(setq lsp-pyright-multi-root nil)
 
 
 (require 'aieis-lang-common)
