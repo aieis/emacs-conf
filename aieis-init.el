@@ -206,6 +206,7 @@
   "Setup emacs config files as completely as possible."
   (interactive)
   (setq-local aieis/setup-start-time (current-time))
+  (package-refresh-contents)
   (aieis/install-all-packages)
   (message "Installation of packages elapsed: %.6f" (float-time (time-since aieis/setup-start-time)))
   (setq-local aieis/load-init-time (current-time))

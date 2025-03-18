@@ -8,6 +8,7 @@
 
 (setq lsp-keymap-prefix "C-c l")
 (setq lsp-pyright-multi-root nil)
+(setq lsp-ruff-ruff-args "--preview")
 
 
 (require 'aieis-lang-common)
@@ -50,11 +51,11 @@
 ;;   (add-to-list 'display-buffer-alist n-disp-list))
 
 (aieis/use-package company
-  :defer t
   :init
   (setq company-selection-wrap-around t)
   (setq company-idle-delay nil)
-  :hook (prog-mode . (lambda () (when (package-installed-p 'company) (require 'company) (company-mode)))))
+  :config (global-company-mode 1))
+
 
 (aieis/use-package lsp :defer t)
 
@@ -76,9 +77,6 @@
       (message "Registering client: major-mode: %s server-id: %s executable: %s" mode server-id executable-path)
       (lsp-register-client client)
       (add-to-list 'lsp-language-id-configuration (cons mode lang-id))))
-
-  ;; Python specific
-  (setq lsp-ruff-ruff-args "--preview")
 
   (lsp-enable-imenu)
   (setq lsp-auto-configure t)
