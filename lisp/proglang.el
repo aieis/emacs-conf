@@ -50,10 +50,11 @@
 ;;   (add-to-list 'display-buffer-alist n-disp-list))
 
 (aieis/use-package company
+  :defer t
   :init
   (setq company-selection-wrap-around t)
   (setq company-idle-delay nil)
-  :hook (prog-mode . company-mode))
+  :hook (prog-mode . (lambda () (when (package-installed-p 'company) (require 'company) (company-mode)))))
 
 (aieis/use-package lsp :defer t)
 
