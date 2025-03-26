@@ -2,6 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 (require 'vc-git)
+(require 'aieis-package)
 
 (defun aieis/pyrightconfig-write ()
   "Setup the python virtual environment."
@@ -19,6 +20,11 @@
             :venvPath venvPath
             :venv venv ))))
     (with-temp-file out-file (insert out-contents))))
+
+(aieis/use-package lsp-pyright
+  :custom
+  (lsp-pyright-langserver-command "pyright")
+  (lsp-pyright-multi-root nil))
 
 (provide 'aieis-lang-python)
 ;;; aieis-lang-python.el ends here

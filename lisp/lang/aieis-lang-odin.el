@@ -7,6 +7,5 @@
 (require 'aieis-lang-common)
 (add-to-list 'aieis/lsp-servers '(odin-mode "ols" ols "odin"))
 
-
 (provide 'aieis-lang-odin)
 ;;; aieis-lang-odin.el ends here
