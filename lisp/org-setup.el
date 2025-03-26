@@ -17,7 +17,7 @@
            (file+headline "~/notes/tasks.org" "Refile")
            "* TODO %^t %? %^G")
           ("a"
-           "Template for adding a task"
+           "Template for adding an artwork task"
            entry
            (file+headline "~/notes/art.org" "Art")
            "* TODO %^t %?  %^G")

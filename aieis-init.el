@@ -4,28 +4,27 @@
 ;;; Code:
 
 ;; Set Variables
-(column-number-mode t)
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-(global-auto-revert-mode t)
-(global-hl-line-mode t)
-(blink-cursor-mode 0)
-(toggle-truncate-lines 1)
-(indent-tabs-mode -1)
+(setq-default column-number-mode t)
+(setq-default menu-bar-mode -1)
+(setq-default tool-bar-mode -1)
+(setq-default scroll-bar-mode -1)
+(setq-default global-auto-revert-mode t)
+(setq-default global-hl-line-mode t)
+(setq-default blink-cursor-mode 0)
+(setq-default truncate-lines 1)
+(setq-default indent-tabs-mode -1)
 (electric-pair-mode 1)
 (recentf-mode 1)
-(setq display-buffer-base-action '(display-buffer-reuse-window (reusable-frames . 1)))
-(setq delete-old-versions t)
-(setq native-comp-async-report-warnings-errors 'silent)
-(setq org-startup-indented t)
-(setq org-hide-leading-stars t)
-(setq gc-cons-threshold (* 100 1024 1024))
-(setq read-process-output-max (* 1024 1024))
-
-(setq backup-directory-alist '(("" . "~/.emacs.d/backup/")))
-(setq auto-save-file-name-transforms `((".*" "~/.emacs.d/saves/" t)))
-(setq lock-file-name-transforms `((".*" "~/.emacs.d/lockfiles/" t)))
+(setq-default display-buffer-base-action '(display-buffer-reuse-window (reusable-frames . 1)))
+(setq-default delete-old-versions t)
+(setq-default native-comp-async-report-warnings-errors 'silent)
+(setq-default org-startup-indented t)
+(setq-default org-hide-leading-stars t)
+(setq-default gc-cons-threshold (* 100 1024 1024))
+(setq-default read-process-output-max (* 1024 1024))
+(setq-default backup-directory-alist '(("" . "~/.emacs.d/backup/")))
+(setq-default auto-save-file-name-transforms `((".*" "~/.emacs.d/saves/" t)))
+(setq-default lock-file-name-transforms `((".*" "~/.emacs.d/lockfiles/" t)))
 
 (defun aieis/terminal-visible-bell ()
   "A friendlier visual bell effect."
@@ -76,8 +75,9 @@
 
 ;; M-x utilities and mini-buffer
 (aieis/use-package orderless
-  :custom (completion-styles '(orderless basic))
-  (completion-category-overrides '((file (styles basic partial-completion)))))
+  :config
+  (setq-default completion-styles '(orderless basic))
+  (setq-default completion-category-overrides '((file (styles basic partial-completion)))))
 
 (aieis/use-package marginalia
   :config
