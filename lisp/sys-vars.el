@@ -11,7 +11,8 @@
 (defun aieis/linux--set-vars ()
   "Set the default variables for the linux OS."
   (setq-default aieis/ue-setup 'nil)
-  (setq-default aieis/ue-root-path "/opt/unreal-engine"))
+  (setq-default aieis/ue-root-path "/opt/unreal-engine")
+  (setq-default aieis/llvm-root-path "/opt/llvm"))
 
 
 (cond ((string-equal system-type "windows-nt")
