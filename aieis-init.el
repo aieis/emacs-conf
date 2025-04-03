@@ -4,17 +4,17 @@
 ;;; Code:
 
 ;; Set Variables
-(setq-default column-number-mode t)
-(setq-default menu-bar-mode -1)
-(setq-default tool-bar-mode -1)
-(setq-default scroll-bar-mode -1)
-(setq-default global-auto-revert-mode t)
-(setq-default global-hl-line-mode t)
-(setq-default blink-cursor-mode 0)
-(setq-default truncate-lines 1)
-(setq-default indent-tabs-mode -1)
+(column-number-mode t)
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(global-auto-revert-mode t)
+(global-hl-line-mode t)
+(blink-cursor-mode 0)
+(indent-tabs-mode -1)
 (electric-pair-mode 1)
 (recentf-mode 1)
+(setq-default truncate-lines 1)
 (setq-default display-buffer-base-action '(display-buffer-reuse-window (reusable-frames . 1)))
 (setq-default delete-old-versions t)
 (setq-default native-comp-async-report-warnings-errors 'silent)
@@ -50,8 +50,8 @@
 
 (require 'aieis-package)
 (aieis/use-package all-the-icons)
-(aieis/use-package all-the-icons-dired)
-(aieis/use-package dired-hide-dotfiles)
+(aieis/use-package all-the-icons-dired :config (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
+(aieis/use-package dired-hide-dotfiles :config (define-key dired-mode-map "." #'dired-hide-dotfiles-mode))
 
 (setq-default flycheck-emacs-lisp-load-path 'inherit)
 (require 'utils)
@@ -67,11 +67,6 @@
 (require 'font-setup)
 (require 'async-shell)
 (require 'misc-keybinds)
-(defvar aieis/local-packages)
-(aieis/install-packages aieis/local-packages)
-
-;; (aieis/install-packages aieis/packages)
-
 
 ;; M-x utilities and mini-buffer
 (aieis/use-package orderless

@@ -10,11 +10,6 @@
 (setq ls-lisp-dirs-first t)
 (setq ls-lisp-use-insert-directory-program nil)
 
-(add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
-
-
-(define-key dired-mode-map "." #'dired-hide-dotfiles-mode)
-
 (defun aieis/dired-open-new ()
   "Open a new frame with a Dired buffer."
   (interactive)
