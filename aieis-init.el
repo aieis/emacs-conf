@@ -1,4 +1,4 @@
-fly;;; aieis-init.el --- Main init file
+;;; aieis-init.el --- Main init file
 ;;; Commentary:
 
 ;;; Code:
