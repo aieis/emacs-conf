@@ -1,4 +1,4 @@
-;;; aieis-init.el --- Main init file
+fly;;; aieis-init.el --- Main init file
 ;;; Commentary:
 
 ;;; Code:
@@ -53,6 +53,7 @@
 (aieis/use-package all-the-icons-dired :config (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
 (aieis/use-package dired-hide-dotfiles :config (define-key dired-mode-map "." #'dired-hide-dotfiles-mode))
 
+(aieis/use-package flycheck)
 (setq-default flycheck-emacs-lisp-load-path 'inherit)
 (require 'utils)
 (require 'read-only-enhanced)
