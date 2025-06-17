@@ -4,15 +4,15 @@
 ;;; Code:
 
 ;; Set Variables
-(setq-default column-number-mode t)
-(setq-default menu-bar-mode -1)
-(setq-default tool-bar-mode -1)
-(setq-default scroll-bar-mode -1)
-(setq-default global-auto-revert-mode t)
-(setq-default global-hl-line-mode t)
-(setq-default blink-cursor-mode 0)
+(column-number-mode t)
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(global-auto-revert-mode t)
+(global-hl-line-mode t)
+(blink-cursor-mode 0)
 (setq-default truncate-lines 1)
-(setq-default indent-tabs-mode -1)
+(indent-tabs-mode -1)
 (electric-pair-mode 1)
 (recentf-mode 1)
 (setq-default display-buffer-base-action '(display-buffer-reuse-window (reusable-frames . 1)))
@@ -79,9 +79,9 @@
   (setq-default completion-styles '(orderless basic))
   (setq-default completion-category-overrides '((file (styles basic partial-completion)))))
 
-(aieis/use-package marginalia
-  :config
-  (marginalia-mode))
+;; (aieis/use-package marginalia
+;;   :config
+;;   (marginalia-mode))
 
 (aieis/use-package embark
   :config

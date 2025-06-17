@@ -16,6 +16,7 @@
 (require 'aieis-lang-js)
 (require 'aieis-lang-odin)
 (require 'aieis-lang-json)
+(require 'aieis-lang-glsl)
 
 (require 'aieis-package)
 
