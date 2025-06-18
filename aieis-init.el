@@ -75,9 +75,9 @@
   (setq-default completion-styles '(orderless basic))
   (setq-default completion-category-overrides '((file (styles basic partial-completion)))))
 
-(aieis/use-package marginalia
-  :config
-  (marginalia-mode))
+;; (aieis/use-package marginalia
+;;   :config
+;;   (marginalia-mode))
 
 (aieis/use-package embark
   :config

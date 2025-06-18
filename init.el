@@ -4,9 +4,8 @@
 
 ;; (require 'org)
 ;;(org-babel-load-file (expand-file-name "myinit.org" user-emacs-directory))
-(load-file (concat user-emacs-directory "aieis-init.el"))
-
 (setq custom-file (concat user-emacs-directory "custom.el"))
+(load-file (concat user-emacs-directory "aieis-init.el"))
 (when (file-exists-p custom-file)
   (load custom-file))
 
