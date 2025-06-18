@@ -4,7 +4,12 @@
 
 (setq-default c-basic-offset 4)
 (setq-default js-indent-level 4)
-(c-set-offset 'substatement-open 0)
+
+(defun aieis-c++-hook ()
+  (c-set-offset 'substatement-open 0))
+
+(add-to-list 'c++-mode-hook 'aieis-c++-hook)
+
 
 (setq lsp-keymap-prefix "C-c l")
 (setq lsp-pyright-multi-root nil)

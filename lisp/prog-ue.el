@@ -23,5 +23,12 @@
     (setenv "LIBCLANG_PATH" tcp)
     (setenv "PATH" (s-join path-separator exec-path))))
 
+
+(defun aieis-ue-hook ()
+  (dolist (macro '("UCLASS" "GENERATED_BODY" "UFUNCTION" "UPROPERTY" "UE_LOG"))
+    (add-to-list 'c-macro-names-with-semicolon macro))
+  (c-make-macro-with-semi-re))
+(add-to-list 'c++-mode-hook 'aieis-ue-hook)
+
 (provide 'prog-ue)
 ;;; prog-ue.el ends here

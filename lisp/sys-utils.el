@@ -14,9 +14,10 @@
 
     (cond
      ((string-equal system-type "windows-nt")
-      (w32-shell-execute "open" "wt.exe" (concat "-d" (expand-file-name target-dir))))
+      (start-process "" nil "wezterm.exe" "start" "--cwd"  (expand-file-name target-dir) "pwsh.exe"))
      ((string-equal system-type "gnu/linux")
       (start-process "" nil "alacritty" (concat "--working-directory " (expand-file-name target-dir)))))))
+
 
 
 (defun aieis/open-default (&optional file)
