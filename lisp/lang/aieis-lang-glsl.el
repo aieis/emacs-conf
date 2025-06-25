@@ -3,7 +3,6 @@
 ;;; Code:
 
 (require 'aieis-package)
-(aieis/use-package glsl-mode :defer t)
 
 (defun aieis/vk-compile ()
   (interactive)
@@ -37,8 +36,10 @@
 	(cmd (concat "glslc -c " files)))
     (compile cmd)))
 
-(define-key glsl-mode-map (kbd "C-c d") 'aieis/vk-compile-dir)
-(define-key glsl-mode-map (kbd "C-c s") 'aieis/vk-compile)
+(aieis/use-package glsl-mode :defer t
+  :config
+  (define-key glsl-mode-map (kbd "C-c d") 'aieis/vk-compile-dir)
+  (define-key glsl-mode-map (kbd "C-c s") 'aieis/vk-compile))
 
 (provide 'aieis-lang-glsl)
 ;;; aieis-lang-glsl.el ends here
