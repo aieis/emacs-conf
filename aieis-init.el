@@ -13,6 +13,7 @@
 (blink-cursor-mode 0)
 (electric-pair-mode 1)
 (recentf-mode 1)
+(prefer-coding-system 'utf-8-unix)
 (setq-default indent-tabs-mode -1)
 (setq-default truncate-lines 1)
 (setq-default display-buffer-base-action '(display-buffer-reuse-window (reusable-frames . 1)))
