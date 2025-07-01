@@ -27,14 +27,13 @@
 
               (message "\n\n%s\n" (nth 2 ln))
               (setq desc (substring-no-properties (nth 2 ln)))
-              
+
               (when (string= type "id")
                 (setq ncls (aieis/org-export-helper path ncls desc buf)))))))
       ncls)))
-  
-      
+
+
 
 (defun aieis/org-export ()
   (interactive)
   (aieis/org-export-helper (org-id-get) '() "Org Export" (generate-new-buffer "*Custom Org Export*")))
-
