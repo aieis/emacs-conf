@@ -17,8 +17,7 @@
 
 (cond ((string-equal system-type "windows-nt")
        (aieis/windows--set-vars))
-      ((string-equal system-type "gnu/linux")
-       (aieis/linux--set-vars)))
+      (t (aieis/linux--set-vars)))
 
 (provide 'sys-vars)
 ;;; sys-vars.el ends here

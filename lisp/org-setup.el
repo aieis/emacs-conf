@@ -2,6 +2,18 @@
 ;;; Commentary:
 ;;; Code:
 
+
+(setq aieis-org-notes-dir
+      (let ((notes-dir (file-truename "~/notes"))
+            (backup-notes-dir (concat user-emacs-directory "/notes")))
+        (cond ((file-exists-p notes-dir) notes-dir)
+              ((file-exists-p backup-notes-dir) backup-notes-dir)
+              (t (progn (make-directory backup-notes-dir) backup-notes-dir)))))
+
+(defun aieis--notes-file (filename)
+  "Returns the fullpath of a file in the notes directory given a `FILENAME'."
+  (concat aieis-org-notes-dir "/" filename))
+
 (with-eval-after-load 'org
   (setq org-return-follows-link t)
   (let ((cmd-pairs
@@ -10,25 +22,27 @@
 
     (mapc #'(lambda (pair) (define-key org-mode-map (kbd (car pair)) (cadr pair))) cmd-pairs))
 
-  (setq org-capture-templates
-        `(("b"
-           "Template for adding a task"
-           entry
-           (file+headline "~/notes/tasks.org" "Refile")
-           "* TODO %^t %? %^G")
-          ("a"
-           "Template for adding an artwork task"
-           entry
-           (file+headline "~/notes/art.org" "Art")
-           "* TODO %^t %?  %^G")
-          ("c" "Add a code snippet" entry
-           (file+headline "~/notes/snippets.org" "Snippet")
-           "* %t %?"))))
+  (let ((tasks-file (aieis--notes-file "tasks.org"))
+        (art-file (aieis--notes-file "art.org"))
+        (snippets-file (aieis--notes-file "snippets.org")))
 
-(let ((notes-dir (file-truename "~/notes")))
-  (if (file-exists-p notes-dir)
-      (setq-default org-roam-directory notes-dir)
-    (message "Notes directory '%s' does not exist" notes-dir)))
+    (setq org-capture-templates
+          (list
+           (list "b" "Template for adding a task" 'entry
+                 (list 'file+headline tasks-file "Refile")
+                 "* TODO %^t %? %^G")
+           (list "a" "Template for adding an artwork task" 'entry
+                 (list 'file+headline art-file "Art")
+                 "* TODO %^t %?  %^G")
+           (list "c" "Add a code snippet" 'entry
+                 (list 'file+headline snippets-file "Snippet")
+                 "* %t %?")))
+
+    (setq org-agenda-files (list tasks-file art-file snippets-file))))
+
+(if (file-exists-p aieis-org-notes-dir)
+    (setq-default org-roam-directory aieis-org-notes-dir)
+  (message "Notes directory '%s' does not exist" aieis-org-notes-dir))
 
 (aieis/use-package org-roam :defer t)
 (aieis/use-package org-capture)

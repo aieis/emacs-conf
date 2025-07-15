@@ -12,14 +12,14 @@
   "Show org agenda in a dedicated frame."
   (interactive)
   (progn
-    (aieis/ensure-org-buffer)
+    ;; (aieis/ensure-org-buffer)
     (org-agenda)))
 
 (defun aieis/org-agenda-list ()
   "Show org agneda list in a dedicated frame."
   (interactive)
   (progn
-    (aieis/ensure-org-buffer)
+    ;; (aieis/ensure-org-buffer)
     (org-agenda-list)))
 
 (provide 'agenda)
