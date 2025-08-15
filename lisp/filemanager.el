@@ -30,8 +30,7 @@
   "Add a shortcut, KB, to jump to a target directory TARGET-DIR in a Dired buffer."
   (define-key dired-mode-map (kbd (concat "SPC g " kb)) `(lambda () (interactive) (find-file ,target-dir))))
 
-
-(unbind-key "SPC" dired-mode-map)
+(define-key dired-mode-map (kbd "SPC") 'nil)
 
 (setq-local
  aieis--dirs

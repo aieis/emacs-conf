@@ -194,10 +194,8 @@
 (aieis/use-package ef-themes)
 (aieis/use-package ayu-theme)
 
-(with-eval-after-load 'ayu-theme
-  (load-theme 'ayu-dark t)
-  (set-face-attribute 'region nil ':extend t :background "royal blue"))
-
+(with-eval-after-load 'modus-themes
+  (load-theme 'modus-vivendi t))
 
 (defun aieis/setup-init ()
   "Setup emacs config files as completely as possible."
