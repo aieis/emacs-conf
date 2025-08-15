@@ -8,7 +8,7 @@
 (defun aieis-c++-hook ()
   (c-set-offset 'substatement-open 0))
 
-(add-to-list 'c++-mode-hook 'aieis-c++-hook)
+(add-to-list 'c-mode-common-hook 'aieis-c++-hook)
 
 
 (setq lsp-keymap-prefix "C-c l")
@@ -28,9 +28,18 @@
 (aieis/use-package haskell-mode :defer t)
 (aieis/use-package lsp-haskell :defer t)
 (aieis/use-package rust-mode :defer t)
+(aieis/use-package lua-mode :defer t)
 (aieis/use-package pyvenv :defer t)
 (aieis/use-package pyvenv-auto :defer t)
 (aieis/use-package lsp-ui :defer t)
+
+(aieis/use-package multiple-cursors
+  :config
+  (define-key global-map (kbd "C-c m m") 'mc/edit-lines)
+  (define-key global-map (kbd "C-c m n") 'mc/mark-next-like-this)
+  (define-key global-map (kbd "C-c m p") 'mc/mark-previous-like-this)
+  (define-key global-map (kbd "C-c m a") 'mc/mark-all-like-this)
+  (define-key mc/keymap  (kbd "C-n")     'mc/mark-next-like-this))
 
 (add-to-list 'aieis/lsp-mode-hooks 'c-mode-common-hook)
 (add-to-list 'aieis/lsp-mode-hooks 'rust-mode-hook)
@@ -134,7 +143,6 @@
 
 (define-key global-map (kbd "C-,") 'compile)
 (define-key global-map (kbd "C->") 'project-compile)
-(define-key global-map (kbd "C-@") 'delete-trailing-whitespace)
 
 (provide 'proglang)
 ;;; proglang.el ends here

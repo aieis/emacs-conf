@@ -16,7 +16,7 @@
      ((string-equal system-type "windows-nt")
       (start-process "" nil "wezterm.exe" "start" "--cwd"  (expand-file-name target-dir) "pwsh.exe"))
      ((string-equal system-type "gnu/linux")
-      (start-process "" nil "alacritty" (concat "--working-directory " (expand-file-name target-dir)))))))
+      (start-process "" nil "wezterm" "start" "--cwd" (expand-file-name target-dir))))))
 
 
 

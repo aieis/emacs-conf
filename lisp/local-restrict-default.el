@@ -10,8 +10,6 @@
 
 
 ;;; Font Override
-(setq-default aieis/font-family "Iosevka")
-(setq-default aieis/font-size 10)
 (setq-default aieis/font-list '(("Iosevka" . 10)))
 
 
