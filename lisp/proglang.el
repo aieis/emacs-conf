@@ -1,6 +1,8 @@
 ;;; proglang.el --- package providing code-specific configuration
 ;;; Commentary:
 ;;; Code:
+(setq lsp-keymap-prefix "C-c l")
+(setq lsp-pyright-multi-root nil)
 
 (setq-default c-basic-offset 4)
 (setq-default js-indent-level 4)
@@ -9,12 +11,6 @@
   (c-set-offset 'substatement-open 0))
 
 (add-to-list 'c-mode-common-hook 'aieis-c++-hook)
-
-
-(setq lsp-keymap-prefix "C-c l")
-(setq lsp-pyright-multi-root nil)
-(setq lsp-ruff-ruff-args "--preview")
-
 
 (require 'aieis-lang-common)
 (require 'aieis-lang-python)
@@ -32,6 +28,9 @@
 (aieis/use-package pyvenv :defer t)
 (aieis/use-package pyvenv-auto :defer t)
 (aieis/use-package lsp-ui :defer t)
+
+;; sh-mode
+(push '("/[\\.]?[x]?profile\\'" . sh-mode) auto-mode-alist)
 
 (aieis/use-package multiple-cursors
   :config
@@ -71,30 +70,17 @@
   (setq company-idle-delay nil)
   :config (global-company-mode 1))
 
-(aieis/use-package lsp-ui :defer t)
-
-(aieis/use-package lsp :defer t)
 
 ;; LSP Mode
-(with-eval-after-load 'lsp
-  (dolist (hook aieis/lsp-mode-hooks)
-    (add-hook 'hook #'lsp-deferred))
 
-  (dolist (var aieis/lsp-servers)
-    (let* ((mode (car var))
-           (executable-path (cadr var))
-           (server-id (caddr var))
-           (lang-id (cadddr var))
-           (client (make-lsp-client
-                    :new-connection (lsp-stdio-connection executable-path)
-		    :major-modes (list mode)
-		    :server-id server-id
-		    :multi-root t)))
-      (message "Registering client: major-mode: %s server-id: %s executable: %s" mode server-id executable-path)
-      (lsp-register-client client)
-      (add-to-list 'lsp-language-id-configuration (cons mode lang-id))))
+(aieis/use-package lsp-mode
+  :defer t
+  :commands
+  (lsp lsp-deffered)
 
-  (lsp-enable-imenu)
+  :init
+  (message "lsp setup")
+  (setq-default lsp-ruff-ruff-args "--preview")
   (setq-default lsp-auto-configure t)
   (setq-default lsp-enable-dap-auto-configure nil)
   (setq-default lsp-auto-guess-root t)
@@ -132,7 +118,29 @@
   (setq-default lsp-ui-doc-alignment 'frame)
   (setq-default lsp-ui-doc-header nil)
   (setq-default lsp-ui-doc-include-signature t)
-  (setq-default lsp-ui-doc-use-childframe t))
+  (setq-default lsp-ui-doc-use-childframe t)
+
+  :config
+  (dolist (hook aieis/lsp-mode-hooks)
+    (add-hook 'hook #'lsp-deferred))
+
+  (dolist (var aieis/lsp-servers)
+    (let* ((mode (car var))
+           (executable-path (cadr var))
+           (server-id (caddr var))
+           (lang-id (cadddr var))
+           (client (make-lsp-client
+                    :new-connection (lsp-stdio-connection executable-path)
+		    :major-modes (list mode)
+		    :server-id server-id
+		    :multi-root t)))
+      (message "Registering client: major-mode: %s server-id: %s executable: %s" mode server-id executable-path)
+      (lsp-register-client client)
+      (add-to-list 'lsp-language-id-configuration (cons mode lang-id))))
+
+  (lsp-enable-imenu))
+
+(aieis/use-package lsp-ui :defer t)
 
 ;; Keymap Keys
 (define-key prog-mode-map (kbd "C-c f d") 'flycheck-list-errors)
