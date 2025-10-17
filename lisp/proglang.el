@@ -32,6 +32,10 @@
 ;; sh-mode
 (push '("/[\\.]?[x]?profile\\'" . sh-mode) auto-mode-alist)
 
+;; project.el
+(setq-default project-vc-merge-submodules nil)
+
+
 (aieis/use-package multiple-cursors
   :config
   (define-key global-map (kbd "C-c m m") 'mc/edit-lines)
