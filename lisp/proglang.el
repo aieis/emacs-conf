@@ -37,7 +37,10 @@
   (define-key global-map (kbd "C-c m m") 'mc/edit-lines)
   (define-key global-map (kbd "C-c m n") 'mc/mark-next-like-this)
   (define-key global-map (kbd "C-c m p") 'mc/mark-previous-like-this)
-  (define-key global-map (kbd "C-c m a") 'mc/mark-all-like-this)
+  (define-key global-map (kbd "C-c m a") 'mc/mark-all-like-this))
+
+;; the following define does not seem to work in the config above
+(with-eval-after-load 'multiple-cursors
   (define-key mc/keymap  (kbd "C-n")     'mc/mark-next-like-this))
 
 (add-to-list 'aieis/lsp-mode-hooks 'c-mode-common-hook)

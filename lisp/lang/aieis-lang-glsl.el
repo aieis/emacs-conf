@@ -42,13 +42,13 @@
   (define-key glsl-mode-map (kbd "C-c s") 'aieis/vk-compile))
 
 ;; It is a local package
-(use-package slang-mode
+(aieis/use-package slang-mode
   :ensure nil
   :mode (("\\.slang\\'" . slang-mode)
          ("\\.sl\\'" . slang-mode)
          ("\\.slangh\\'" . slang-mode)))
 
-(use-package slang-lsp
+(aieis/use-package slang-lsp
   :ensure nil
   :config
   (slang-lsp-initialize))

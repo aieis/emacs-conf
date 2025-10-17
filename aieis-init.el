@@ -154,6 +154,11 @@
 (define-key global-map (kbd "M-]") #'aieis/man-at-point)
 
 
+(defun aieis-insert-uuid ()
+  (interactive)
+  (insert (org-id-new)))
+
+
 ;; Advanced Window Configurations
 (aieis/use-package ace-window
   :config
