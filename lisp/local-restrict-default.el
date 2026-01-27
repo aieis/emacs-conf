@@ -11,6 +11,8 @@
 
 ;;; Font Override
 (setq-default aieis/font-list '(("Iosevka" . 10)))
+(setq-default aieis/internal-border-width 32)
+
 
 
 (provide 'local-restrict)

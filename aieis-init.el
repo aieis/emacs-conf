@@ -44,6 +44,7 @@
 
 (require 'odin-mode)
 (require 'json-mode)
+(require 'hlsl-mode)
 
 (add-to-list 'load-path (concat user-emacs-directory "lisp/" ))
 (add-to-list 'load-path (concat user-emacs-directory "lisp/lang/" ))
@@ -150,7 +151,7 @@
                (concat "/sudo:root@localhost:" file))))
 
 
-(define-key global-map (kbd "C-k") #'aieis/kill-line-zero-space)
+(define-key global-map (kbd "C-k") #'kill-line)
 (define-key global-map (kbd "M-]") #'aieis/man-at-point)
 
 
@@ -190,17 +191,29 @@
           (reusable-frames . visible))
          ("\\(\\*Agenda Commands.*\\|*Org Agenda.*\\)"
           (display-buffer-reuse-mode-window)
-          (reusable-frames . visible)))))
+          (reusable-frames . visible))
+         )))
   (setq display-buffer-alist (append display-buffer-alist add-display-buffer-alist)))
 
-;; Themes
+(let ((new-default-frame-alist
+       `((internal-border-width . ,aieis/internal-border-width))))
+  (dolist (item new-default-frame-alist)
+    (add-to-list 'default-frame-alist item)))
+
+
+;; Themes and Appearance
 (aieis/use-package moe-theme)
 (aieis/use-package modus-themes)
 (aieis/use-package ef-themes)
 (aieis/use-package ayu-theme)
 
-(with-eval-after-load 'modus-themes
-  (load-theme 'modus-vivendi t))
+(with-eval-after-load 'ayu-theme
+  (load-theme 'ayu-dark t)
+  (set-face-attribute 'region nil ':extend t :background "slate gray")
+  (set-face-attribute 'fringe nil :background (face-attribute 'default :background)))
+
+;; (with-eval-after-load 'modus-themes
+;;   (load-theme 'modus-vivendi t))
 
 (defun aieis/setup-init ()
   "Setup emacs config files as completely as possible."
