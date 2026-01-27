@@ -16,6 +16,10 @@
 
 (with-eval-after-load 'org
   (setq org-return-follows-link t)
+
+  (define-key org-mode-map (kbd "C-'") nil)
+  (define-key org-mode-map (kbd "C-,") nil)
+
   (let ((cmd-pairs
          '(("M-N" org-move-subtree-down)
            ("M-P" org-move-subtree-up))))

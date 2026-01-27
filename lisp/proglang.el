@@ -159,5 +159,13 @@
 (define-key global-map (kbd "C-,") 'compile)
 (define-key global-map (kbd "C->") 'project-compile)
 
+(with-eval-after-load 'flyspell-mode
+  (define-key flyspell-mode-map (kbd "C-,") 'nil)
+  (define-key flyspell-mode-map (kbd "C-;") 'nil)
+  (define-key flyspell-mode-map (kbd "C-.") 'nil)
+  (define-key flyspell-mode-map (kbd "C-c f b") 'flyspell-buffer)
+  (define-key flyspell-mode-map (kbd "C-c f n") 'flyspell-goto-next-error)
+  (define-key flyspell-mode-map (kbd "C-c f i") 'ispell-word))
+
 (provide 'proglang)
 ;;; proglang.el ends here
