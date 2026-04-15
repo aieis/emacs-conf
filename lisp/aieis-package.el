@@ -37,7 +37,10 @@ PACKAGE is the package name and BODY is the rest."
   "Install all the packages in the list PACKAGES."
   (dolist (package packages)
     (if (aieis/package-exists-in-repository-p package)
-	(package-install package)
+        (condition-case err
+            (package-install package)
+          (error
+           (message "Warning: Failed to install 'package'. Error: %s" err)))
       (message "Package '%s' Does not exists in the repositories. Consider calling `package-refresh-contents'" package))))
 
 
@@ -46,7 +49,7 @@ PACKAGE is the package name and BODY is the rest."
   (interactive)
   (require 'recentf)
   (unless (package-installed-p 'use-package)
-    (aieis/install-packages '('use-package)))
+    (aieis/install-packages '(use-package)))
   (aieis/install-packages aieis-packages)
   (aieis/install-packages aieis-local-packages))
 
