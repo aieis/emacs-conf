@@ -42,10 +42,12 @@
 
 (add-to-list 'load-path (concat user-emacs-directory "manual-package/" ))
 (add-to-list 'load-path (concat user-emacs-directory "manual-package/" "lsp-bridge/"))
+(add-to-list 'load-path (concat user-emacs-directory "manual-package/" "ayu-theme/"))
 
 (require 'odin-mode)
 (require 'json-mode)
 (require 'hlsl-mode)
+(require 'ayu-theme)
 
 (add-to-list 'load-path (concat user-emacs-directory "lisp/" ))
 (add-to-list 'load-path (concat user-emacs-directory "lisp/lang/" ))
@@ -206,15 +208,13 @@
 (aieis/use-package moe-theme)
 (aieis/use-package modus-themes)
 (aieis/use-package ef-themes)
-(aieis/use-package ayu-theme)
+;; (aieis/use-package ayu-theme)
 
 (with-eval-after-load 'ayu-theme
   (load-theme 'ayu-dark t)
   (set-face-attribute 'region nil ':extend t :background "slate gray")
   (set-face-attribute 'fringe nil :background (face-attribute 'default :background)))
 
-;; (with-eval-after-load 'modus-themes
-;;   (load-theme 'modus-vivendi t))
 
 (defun aieis/setup-init ()
   "Setup emacs config files as completely as possible."

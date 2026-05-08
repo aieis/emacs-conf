@@ -57,7 +57,7 @@
   (require 'org-roam-protocol))
 
 (define-key global-map (kbd "C-c a") 'aieis/org-agenda)
-(define-key global-map (kbd "C-c c") (lambda () (interactive) (require 'org-capture) (call-interactively 'org-capture)))
+;; (define-key global-map (kbd "C-c c") (lambda () (interactive) (require 'org-capture) (call-interactively 'org-capture)))
 (define-key global-map (kbd "C-c n l") (lambda () (interactive) (require 'org-roam) (call-interactively 'org-roam-buffer-toggle)))
 (define-key global-map (kbd "C-c n f") (lambda () (interactive) (require 'org-roam) (call-interactively 'org-roam-node-find)))
 (define-key global-map (kbd "C-c n g") (lambda () (interactive) (require 'org-roam) (call-interactively 'org-roam-graph)))

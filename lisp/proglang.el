@@ -154,9 +154,9 @@
 (define-key prog-mode-map (kbd "C-c f d") 'flycheck-list-errors)
 (define-key prog-mode-map (kbd "C-c f n") 'flycheck-next-error)
 (define-key prog-mode-map (kbd "C-c f f") 'flycheck-mode)
-(define-key prog-mode-map (kbd "C-.") 'company-complete)
-(define-key prog-mode-map (kbd "M-/") 'company-files)
 
+(define-key global-map (kbd "C-.") 'company-complete)
+(define-key global-map (kbd "M-/") 'company-files)
 (define-key global-map (kbd "C-,") 'compile)
 (define-key global-map (kbd "C->") 'project-compile)
 
